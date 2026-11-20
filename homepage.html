@@ -1,0 +1,3112 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tervezetek – Hírlevél, Kreatívok, Blog & Podcast</title>
+  <!-- Modern geometrikus sans-serif fallback (Plus Jakarta Sans) az Aeonik arculathoz -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-dark: #141E3C;
+      --navy-mid: #1C2A54;
+      --cyan: #00A8E8;
+      --orange: #FF6B00;
+      --purple: #6A0DAD;
+      --bg-light: #F4F6F9;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --white: #FFFFFF;
+      --ios-blue: #007AFF;
+      --mac-bg: #ECECEC;
+      --mac-sidebar: #E0E0E0;
+      --font-brand: 'Aeonik', 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-brand);
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      font-family: var(--font-brand);
+    }
+
+    /* Felső navigációs / fejléc sáv */
+    header {
+      background-color: var(--navy-dark);
+      color: var(--white);
+      padding: 24px 5%;
+      border-bottom: 4px solid;
+      border-image: linear-gradient(90deg, var(--orange), var(--cyan), var(--purple)) 1;
+    }
+
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    .brand span {
+      color: var(--cyan);
+      font-weight: 400;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #CBD5E1;
+    }
+
+    /* Fülválasztó gombok */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px;
+      border-radius: 10px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #CBD5E1;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .tab-btn.active {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
+    }
+
+    /* Fő tartalmi elrendezés */
+    main {
+      max-width: 1300px;
+      margin: 40px auto;
+      padding: 0 5%;
+    }
+
+    .concept-section {
+      display: none;
+      flex-direction: column;
+      gap: 40px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .concept-section.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .concept-top-row {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    /* Bal oldali szöveges koncepció */
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
+    .badge-newsletter { background: #FFEDD5; color: #C2410C; }
+    .badge-blog { background: #E0F2FE; color: #0369A1; }
+    .badge-podcast { background: #F3E8FF; color: #6B21A8; }
+
+    .concept-info h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--navy-dark);
+      line-height: 1.22;
+      margin-bottom: 16px;
+    }
+
+    .concept-info > p {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(20, 30, 60, 0.05);
+      border-top: 3px solid var(--cyan);
+    }
+
+    .feature-card.orange { border-top-color: var(--orange); }
+    .feature-card.purple { border-top-color: var(--purple); }
+
+    .feature-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy-dark);
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .topic-list {
+      background: var(--white);
+      padding: 20px 24px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(20, 30, 60, 0.05);
+    }
+
+    .topic-list h4 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--navy-dark);
+      margin-bottom: 12px;
+      letter-spacing: 0.6px;
+    }
+
+    .topic-list ul {
+      list-style: none;
+    }
+
+    .topic-list li {
+      font-size: 14px;
+      color: var(--text-dark);
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .topic-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: bold;
+    }
+
+    /* JOBB OLDALI ELŐNÉZETI KONTÉNER */
+    .preview-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* IPHONE MOCKUP */
+    .iphone-frame {
+      width: 320px;
+      height: 620px;
+      background: #111827;
+      border-radius: 46px;
+      padding: 14px;
+      box-shadow: 0 25px 50px -12px rgba(20, 30, 60, 0.35), inset 0 0 0 2px #374151;
+      position: relative;
+    }
+
+    .iphone-notch {
+      width: 106px;
+      height: 24px;
+      background: #000000;
+      border-radius: 18px;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 9px;
+    }
+
+    .camera-dot {
+      width: 8px;
+      height: 8px;
+      background: #1E293B;
+      border-radius: 50%;
+      border: 1px solid #334155;
+    }
+
+    .iphone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      border-radius: 34px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .iphone-screen::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    .iphone-frame::after {
+      content: "";
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      height: 34px;
+      border-radius: 0 0 34px 34px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(20, 30, 60, 0.14));
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    /* TELJES SZÉLESSÉGŰ MACOS APPLE MAIL ASZTALI BLOKK */
+    .macos-section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy-dark);
+      margin-top: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .macos-frame {
+      width: 100%;
+      height: 650px;
+      background: var(--mac-bg);
+      border-radius: 12px;
+      box-shadow: 0 30px 60px -15px rgba(20, 30, 60, 0.3), 0 0 0 1px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .macos-titlebar {
+      height: 36px;
+      background: #EAEAEA;
+      border-bottom: 1px solid #D1D1D1;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      position: relative;
+    }
+
+    .macos-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mac-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #FF5F56; border: 1px solid #E0443E; }
+    .dot-yellow { background: #FFBD2E; border: 1px solid #DEA123; }
+    .dot-green { background: #27C93F; border: 1px solid #1AAB29; }
+
+    .macos-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A4A4A;
+    }
+
+    .macos-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* macOS Bal oldali Mappák */
+    .macos-sidebar {
+      width: 200px;
+      background: var(--mac-sidebar);
+      border-right: 1px solid #D1D1D1;
+      padding: 12px 8px;
+      font-size: 12px;
+      color: #333333;
+    }
+
+    .ms-category {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #7A7A7A;
+      padding: 6px 8px 2px 8px;
+    }
+
+    .ms-item {
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ms-item.active {
+      background: #0063E5;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* macOS Középső Üzenetlista */
+    .macos-message-list {
+      width: 290px;
+      background: #FFFFFF;
+      border-right: 1px solid #D1D1D1;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .macos-message-list::-webkit-scrollbar { display: none; }
+
+    .mml-item {
+      padding: 12px;
+      border-bottom: 1px solid #EAEAEA;
+      cursor: pointer;
+    }
+    .mml-item.selected {
+      background: #0063E5;
+      color: var(--white);
+    }
+    .mml-top { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+    .mml-item.selected .mml-top { color: var(--white); }
+    .mml-time { font-size: 10px; color: #888888; }
+    .mml-item.selected .mml-time { color: rgba(255,255,255,0.8); }
+    .mml-subj { font-size: 11.5px; font-weight: 600; color: #222222; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mml-item.selected .mml-subj { color: var(--white); }
+    .mml-snippet { font-size: 10.5px; color: #666666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mml-item.selected .mml-snippet { color: rgba(255,255,255,0.9); }
+
+    /* macOS Jobb oldali Olvasóablak */
+    .macos-reading-pane {
+      flex: 1;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mrp-toolbar {
+      background: #F5F5F5;
+      border-bottom: 1px solid #D1D1D1;
+      padding: 8px 16px;
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #0063E5;
+      font-weight: 600;
+    }
+
+    .mrp-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #EAEAEA;
+      background: #FFFFFF;
+    }
+
+    .mrp-subject {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 6px;
+    }
+
+    .mrp-sender-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #555555;
+    }
+
+    .mrp-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      background: #F9F9F9;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .mrp-content::-webkit-scrollbar { display: none; }
+
+    /* OLDALSÓ GÖRGETÉS JELZŐ EFFEKT */
+    .side-scroll-cue {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .mouse-track {
+      width: 22px;
+      height: 40px;
+      border: 2px solid #CBD5E1;
+      border-radius: 12px;
+      background: var(--white);
+      box-shadow: 0 4px 12px rgba(20, 30, 60, 0.08);
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mouse-wheel {
+      width: 3px;
+      height: 8px;
+      background: var(--orange);
+      border-radius: 4px;
+      position: absolute;
+      top: 6px;
+      animation: wheelScroll 1.8s infinite cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .scroll-chevrons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -2px;
+    }
+
+    .scroll-chevrons span {
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-bottom: 2px solid var(--orange);
+      border-right: 2px solid var(--orange);
+      transform: rotate(45deg);
+      margin: -3px;
+      animation: chevronFade 1.8s infinite;
+    }
+
+    .scroll-chevrons span:nth-child(2) { animation-delay: 0.25s; }
+    .scroll-chevrons span:nth-child(3) { animation-delay: 0.5s; }
+
+    .scroll-label {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @keyframes wheelScroll {
+      0% { opacity: 1; transform: translateY(0) scaleY(1); }
+      50% { opacity: 1; transform: translateY(12px) scaleY(1.2); }
+      100% { opacity: 0; transform: translateY(18px) scaleY(0.8); }
+    }
+
+    @keyframes chevronFade {
+      0%, 100% { opacity: 0.2; transform: rotate(45deg) translate(0, 0); }
+      50% { opacity: 1; transform: rotate(45deg) translate(2px, 2px); }
+    }
+
+    .status-bar {
+      height: 44px;
+      min-height: 44px;
+      padding: 12px 22px 0 22px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .status-bar.light { background: var(--white); color: #000000; }
+    .status-bar.dark { background: #1E1B4B; color: var(--white); }
+
+    /* HÍRLEVÉL / BLOG / PODCAST BELSŐ ELEMEK */
+    .apple-mail-nav {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.5px solid #E2E8F0;
+      position: sticky;
+      top: 44px;
+      z-index: 15;
+    }
+
+    .am-back {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      color: var(--ios-blue);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .am-arrows {
+      display: flex;
+      gap: 14px;
+      color: var(--ios-blue);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .apple-mail-header {
+      padding: 12px 16px;
+      background: var(--white);
+      border-bottom: 0.5px solid #E2E8F0;
+    }
+
+    .am-sender-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .am-avatar {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-dark), var(--cyan));
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+    }
+
+    .am-sender-meta { flex: 1; min-width: 0; }
+    .am-sender-top { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
+    .am-sender-name { font-size: 13px; font-weight: 700; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .am-time { font-size: 11px; color: #94A3B8; white-space: nowrap; }
+    .am-recipient { font-size: 11px; color: #64748B; display: flex; align-items: center; gap: 3px; }
+    .am-subject { font-size: 15px; font-weight: 700; color: #0F172A; line-height: 1.3; padding-top: 8px; border-top: 0.5px solid #F1F5F9; }
+
+    .apple-mail-toolbar {
+      position: sticky;
+      bottom: 0;
+      background: rgba(248, 250, 252, 0.96);
+      backdrop-filter: blur(8px);
+      border-top: 0.5px solid #E2E8F0;
+      padding: 10px 24px 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ios-blue);
+      z-index: 15;
+    }
+    .apple-mail-toolbar svg { width: 18px; height: 18px; stroke: var(--ios-blue); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .m-nl-header {
+      background: var(--navy-dark);
+      color: var(--white);
+      padding: 14px 18px;
+      border-top: 3px solid var(--orange);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .m-nl-hero {
+      background: var(--navy-mid);
+      color: var(--white);
+      padding: 22px 18px;
+    }
+    .m-nl-hero h4 { font-size: 17px; font-weight: 700; line-height: 1.3; margin: 6px 0 10px 0; }
+    .m-nl-hero p { font-size: 12px; color: #E2E8F0; margin-bottom: 14px; }
+    .m-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 9px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .m-nl-body { padding: 16px; background: #F8FAFC; }
+    .m-card {
+      background: var(--white);
+      padding: 13px;
+      border-radius: 6px;
+      margin-bottom: 11px;
+      border-left: 3px solid var(--cyan);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .m-card.orange { border-left-color: var(--orange); }
+    .m-card h5 { font-size: 13px; font-weight: 700; color: var(--navy-dark); margin: 4px 0 5px 0; }
+    .m-card p { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; }
+
+    /* Blog belső */
+    .m-blog-nav {
+      padding: 12px 18px;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--navy-dark);
+    }
+    .m-blog-cover {
+      height: 140px;
+      background: linear-gradient(135deg, var(--navy-dark), var(--cyan));
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: var(--white);
+    }
+    .m-blog-content { padding: 18px; }
+    .m-blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .m-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 10px;
+    }
+    .m-blog-content p { font-size: 12.5px; color: #334155; margin-bottom: 12px; line-height: 1.55; }
+    .m-quote {
+      background: #F1F5F9;
+      border-left: 3px solid var(--orange);
+      padding: 10px 12px;
+      font-size: 12px;
+      font-style: italic;
+      color: var(--navy-dark);
+      margin-bottom: 12px;
+    }
+
+    /* Podcast belső */
+    .m-pod-bg {
+      background: linear-gradient(180deg, #1E1B4B 0%, var(--navy-dark) 100%);
+      color: var(--white);
+      min-height: 100%;
+      padding: 16px 18px 24px 18px;
+    }
+    .m-pod-art {
+      width: 170px;
+      height: 170px;
+      margin: 12px auto 16px auto;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--orange), var(--purple));
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    }
+    .m-progress {
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .m-progress-bar { width: 42%; height: 100%; background: var(--orange); }
+    .m-play-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--navy-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .m-ep-item {
+      background: rgba(255,255,255,0.07);
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+    }
+
+    /* Reszponzivitás */
+    @media (max-width: 900px) {
+      .concept-top-row {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .concept-info h1 { font-size: 26px; }
+      .macos-frame { height: 750px; }
+    }
+
+    @media (max-width: 520px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      .tabs { width: 100%; justify-content: space-between; }
+      .tab-btn { flex: 1; padding: 10px 8px; font-size: 13px; text-align: center; }
+      .iphone-frame { width: 300px; height: 600px; }
+      .macos-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="brand" style="display: flex; align-items: center; gap: 10px;">
+  <img src="pic/logo.png" alt="PMI Logo" style="height: 50px; width: auto; object-fit: contain; display: block;" />
+  <span>| MEGJELENÉSI TERVEZETEK</span>
+</div>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button class="tab-btn active" onclick="switchTab('newsletter', this)">1. Hírlevél</button>
+        <button class="tab-btn" onclick="switchTab('blog', this)">2. Kreatívok</button>
+        <button class="tab-btn" onclick="switchTab('podcast', this)">3. Blog és Podcast</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1. HÍRLEVÉL KONCEPCIÓ (MOBIL + TELJES SZÉLESSÉGŰ MACOS APPLE MAIL ALATTA) -->
+<!-- HÍRLEVÉL SZEKCIÓ: 3 Hírlevél Váltó + iPhone 16 & Galaxy S24 Méretváltó + Fix Jobb Leírás + Fix Asztali Kliens -->
+<section id="newsletter" class="concept-section active" style="width: 100%; max-width: 1480px; margin: 0 auto; padding: 48px 4%; box-sizing: border-box; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;">
+
+  <!-- Szekciófejléc + 3 hírlevél váltógomb -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(148, 163, 184, 0.25); margin-bottom: 20px;">
+    <div style="max-width: 680px;">
+      <span style="display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2.4px; text-transform: uppercase; color: #7C3AED; margin-bottom: 10px;">
+        Kliens Előnézet • DESKTOP • MOBILE
+      </span>
+      <h2 style="font-size: 34px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.15; margin: 0 0 12px 0; color: #0F172A;">
+        HÍRLEVÉL TERVEZETEK
+      </h2>
+      <p style="font-size: 15.5px; line-height: 1.65; color: #64748B; margin: 0;">
+        A következőekben bemutatásra kerül néhány hírlevélsablon.
+      </p>
+    </div>
+
+    <!-- 3 HÍRLEVÉL VÁLTÓGOMB -->
+    <div id="nl-switcher" role="tablist" aria-label="Hírlevél sablonok" style="display: flex; flex-wrap: wrap; gap: 10px;">
+      <button type="button" class="nl-tab-btn is-active"
+        data-nl-index="0"
+        data-nl-file="newsletters/hirlevel-1.html"
+        data-nl-subject="PODCAST - newsletter-1.html"
+        data-nl-time="09:41"
+        onclick="switchNewsletter(this)">
+        01 • PODCAST
+      </button>
+      <button type="button" class="nl-tab-btn"
+        data-nl-index="1"
+        data-nl-file="newsletters/hirlevel-2.html"
+        data-nl-subject="SERIES - newsletter-2.html"
+        data-nl-time="Tegnap"
+        onclick="switchNewsletter(this)">
+        02 • SERIES
+      </button>
+      <button type="button" class="nl-tab-btn"
+        data-nl-index="2"
+        data-nl-file="newsletters/hirlevel-3.html"
+        data-nl-subject="COMMUNITY - newsletter-3.html"
+        data-nl-time="Nov 14."
+        onclick="switchNewsletter(this)">
+        03 • COMMUNITY
+      </button>
+    </div>
+  </div>
+
+  <!-- Állapotsor -->
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 36px; font-size: 12.5px; color: #64748B;">
+    <div>
+      Aktív sablonfájl: <code id="nl-active-path" style="background: rgba(124, 58, 237, 0.08); color: #6D28D9; padding: 3px 8px; border-radius: 6px; font-weight: 600;">newsletters/hirlevel-1.html</code>
+    </div>
+    <div id="nl-load-status" style="font-weight: 600; color: #0F172A;">Kész</div>
+  </div>
+
+  <!-- FELSŐ BLOKK: Bal oldalon fix 390px sávban Mobilok, Jobb oldalon fix méretű leírás -->
+  <div class="nl-top-row" style="display: grid; grid-template-columns: 390px minmax(0, 1fr); gap: 48px; align-items: start; margin-bottom: 56px;">
+
+    <!-- 1. TELEFONOS SÁV (Fix 390px széles horgonyzóna) -->
+    <div style="width: 390px; max-width: 100%; display: flex; flex-direction: column; align-items: center;">
+      <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: #64748B; margin-bottom: 10px;">
+        KÉPERNYŐMÉRET SZERINTI MEGJELENÍTÉS
+      </div>
+
+      <!-- iPhone 16 méretváltó gombok -->
+      <div id="nl-device-switcher" role="group" aria-label="iPhone 16 és Galaxy S24 képernyőméret választó" style="display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 14px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;">
+          <button type="button" class="nl-device-btn"
+            data-os="ios"
+            data-width="318px"
+            data-height="634px"
+            data-radius="46px"
+            data-screen-radius="35px"
+            data-label="iPhone 16"
+            onclick="switchPhoneSize(this)">
+            iPhone 16
+          </button>
+          <button type="button" class="nl-device-btn is-active"
+            data-os="ios"
+            data-width="326px"
+            data-height="650px"
+            data-radius="48px"
+            data-screen-radius="36px"
+            data-label="iPhone 16 Pro"
+            onclick="switchPhoneSize(this)">
+            iPhone 16 Pro
+          </button>
+          <button type="button" class="nl-device-btn"
+            data-os="ios"
+            data-width="346px"
+            data-height="684px"
+            data-radius="52px"
+            data-screen-radius="40px"
+            data-label="iPhone 16 Pro Max"
+            onclick="switchPhoneSize(this)">
+            16 Pro Max
+          </button>
+        </div>
+
+        <!-- Samsung Galaxy S24 széria méretváltó gombok -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;">
+          <button type="button" class="nl-device-btn"
+            data-os="android"
+            data-width="316px"
+            data-height="630px"
+            data-radius="32px"
+            data-screen-radius="22px"
+            data-label="Galaxy S24"
+            onclick="switchPhoneSize(this)">
+            Galaxy S24
+          </button>
+          <button type="button" class="nl-device-btn"
+            data-os="android"
+            data-width="334px"
+            data-height="664px"
+            data-radius="34px"
+            data-screen-radius="24px"
+            data-label="Galaxy S24+"
+            onclick="switchPhoneSize(this)">
+            Galaxy S24+
+          </button>
+          <button type="button" class="nl-device-btn"
+            data-os="android"
+            data-width="350px"
+            data-height="688px"
+            data-radius="18px"
+            data-screen-radius="10px"
+            data-label="Galaxy S24 Ultra"
+            onclick="switchPhoneSize(this)">
+            S24 Ultra
+          </button>
+        </div>
+      </div>
+
+      <!-- Fix magasságú tároló, hogy a készülékváltás se rángassa a környező elemeket -->
+      <div style="width: 100%; height: 696px; display: flex; align-items: center; justify-content: center;">
+        <div id="nl-iphone-frame" style="width: 326px; height: 650px; background: #111827; border-radius: 48px; padding: 13px; box-shadow: 0 30px 65px -18px rgba(15, 23, 42, 0.36), inset 0 0 0 2px #374151; position: relative; box-sizing: border-box; transition: width 0.25s ease, height 0.25s ease, border-radius 0.25s ease;">
+          <!-- iOS Dynamic Island -->
+          <div id="nl-ios-island" style="width: 102px; height: 22px; background: #000000; border-radius: 16px; position: absolute; top: 19px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; align-items: center; justify-content: flex-end; padding-right: 9px; box-sizing: border-box;">
+            <div style="width: 7px; height: 7px; background: #1E293B; border-radius: 50%; border: 1px solid #475569;"></div>
+          </div>
+
+          <!-- Android Punch-Hole kamera -->
+          <div id="nl-android-punchhole" style="display: none; width: 12px; height: 12px; background: #000000; border-radius: 50%; position: absolute; top: 24px; left: 50%; transform: translateX(-50%); z-index: 20; border: 1px solid #334155; box-sizing: border-box;"></div>
+
+          <!-- Mobil Képernyő -->
+          <div id="nl-iphone-screen" style="width: 100%; height: 100%; background: #FFFFFF; border-radius: 36px; overflow: hidden; display: flex; flex-direction: column; transition: border-radius 0.25s ease;">
+            
+            <!-- Mobil Status Bar -->
+            <div style="height: 40px; min-height: 40px; padding: 11px 20px 0 20px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: #0F172A; background: #F8FAFC; box-sizing: border-box;">
+              <span>9:41</span>
+              <span id="nl-phone-model-tag">iPhone 16 Pro • 5G</span>
+            </div>
+
+            <!-- Mobil Mail Navigációs Sáv -->
+            <div style="height: 34px; min-height: 34px; padding: 0 14px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; box-sizing: border-box;">
+              <span id="nl-mail-back" style="color: #2563EB; font-weight: 600; cursor: pointer;">‹ Beérkező</span>
+              <div id="nl-mail-arrows" style="display: flex; align-items: center; gap: 12px; color: #2563EB; font-size: 13px;">
+                <span title="Előző levél" style="cursor: pointer;">∧</span>
+                <span title="Következő levél" style="cursor: pointer;">∨</span>
+              </div>
+            </div>
+
+            <!-- Mobil Mail Levél Fejléc -->
+            <div style="height: 76px; min-height: 76px; max-height: 76px; padding: 11px 14px; border-bottom: 1px solid #F1F5F9; background: #FFFFFF; box-sizing: border-box; overflow: hidden;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #1E1B4B, #7C3AED); color: #FFFFFF; font-size: 10.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+                </div>
+                <div style="min-width: 0; flex: 1;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 12px; font-weight: 700; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">PMI Budapest, Hungarian Chapter</span>
+                    <span id="nl-phone-time" style="font-size: 10px; color: #94A3B8; flex-shrink: 0;">09:41</span>
+                  </div>
+                  <div style="font-size: 10px; color: #64748B;">Címzett: én &gt;</div>
+                </div>
+              </div>
+              <div id="nl-phone-subject" style="font-size: 12.5px; font-weight: 800; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                PMI Budapest, Hungarian Chapter • PODCAST
+              </div>
+            </div>
+
+            <!-- Betöltött Hírlevél Tartalom (Mobil) -->
+            <iframe id="nl-phone-frame" title="Hírlevél mobil előnézet" style="width: 100%; flex: 1; border: none; background: #FFFFFF; display: block;"></iframe>
+
+            <!-- Mobil Mail Alsó Eszköztár -->
+            <div id="nl-mail-bottombar" style="height: 42px; min-height: 42px; background: #F8FAFC; border-top: 1px solid #E2E8F0; padding: 0 18px; display: flex; justify-content: space-between; align-items: center; color: #2563EB; font-size: 14px; box-sizing: border-box;">
+              <span title="Megjelölés" style="cursor: pointer;">⚑</span>
+              <span title="Áthelyezés" style="cursor: pointer;">📁</span>
+              <span title="Törlés" style="cursor: pointer;">🗑</span>
+              <span title="Válasz" style="cursor: pointer;">↩</span>
+              <span title="Új levél" style="cursor: pointer;">✎</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- KÁRTYÁK NÉLKÜLI, FIX MÉRETŰ LEÍRÁS A TELEFONOS MEGJELENÉS MELLETT -->
+    <div id="nl-side-description" style="width: 100%; max-width: 720px; padding-top: 28px; box-sizing: border-box;">
+      <span style="display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2.2px; text-transform: uppercase; color: #7C3AED; margin-bottom: 12px;">
+        Koncepció &bull; Fejlesztési Irány
+      </span>
+      <h3 style="font-size: 28px; font-weight: 800; letter-spacing: -0.6px; line-height: 1.2; color: #0F172A; margin: 0 0 16px 0;">
+        Első példányok és vizuális irányok a végleges rendszer előtt
+      </h3>
+      <p style="font-size: 16px; line-height: 1.72; color: #475569; margin: 0 0 24px 0;">
+        A következő sablonok elképzelések, nem funkcionálisak – lefejlesztést igényelnek. Ezek első példányok, amennyiben más az elképzelés, nincsen akadálya. Ha megvan az irány (illetve, hogy milyen levélküldő rendszerrel dolgozunk), a megfelelő tervezést és dokumentálást követően munkába lehet állítani.
+      </p>
+
+      <div style="border-top: 1px solid rgba(148, 163, 184, 0.25); padding-top: 20px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-size: 14.5px; line-height: 1.65; color: #334155;">
+          <strong style="color: #0F172A;">Koncepcionális alap:</strong> Az itt látható megoldások vizuális és szerkezeti kiindulópontok, nem kész, éles kiküldésre szánt sablonok.
+        </div>
+        <div style="font-size: 14.5px; line-height: 1.65; color: #334155;">
+          <strong style="color: #0F172A;">Nyitott irányok:</strong> Ha más koncepció vagy eltérő megjelenés merül fel, szabadon alakítható, nincsen akadálya a módosításnak.
+        </div>
+        <div style="font-size: 14.5px; line-height: 1.65; color: #334155;">
+          <strong style="color: #0F172A;">Rendszerhez igazítás és bevezetés:</strong> A választott irány és a levélküldő rendszer ismeretében, a tervezés és a dokumentálás után állítható éles működésbe.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ALSÓ, TELJES SZÉLESSÉGŰ ÉS FIX MAGASSÁGÚ BLOKK: ASZTALI LEVELEZŐKLIENS -->
+  <div id="nl-desktop-block" style="width: 100%; display: flex; flex-direction: column;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px;">
+      <span style="font-size: 11px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: #64748B;">
+        Asztali Levelezőkliens
+      </span>
+      <span style="font-size: 12px; color: #64748B;">
+        Előnézeti sablon
+      </span>
+    </div>
+
+    <div style="width: 100%; height: 680px; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -20px rgba(15, 23, 42, 0.2); display: flex; flex-direction: column; box-sizing: border-box;">
+      
+      <!-- 1. Felső Ablakfejléc (Fix 48px) -->
+      <div style="height: 48px; min-height: 48px; max-height: 48px; background: #F1F5F9; border-bottom: 1px solid #E2E8F0; padding: 0 22px; display: flex; justify-content: space-between; align-items: center; gap: 14px; box-sizing: border-box; overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 7px; flex-shrink: 0;">
+          <span style="width: 11px; height: 11px; border-radius: 50%; background: #EF4444; display: inline-block;"></span>
+          <span style="width: 11px; height: 11px; border-radius: 50%; background: #F59E0B; display: inline-block;"></span>
+          <span style="width: 11px; height: 11px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
+          <span style="margin-left: 8px; font-size: 12px; font-weight: 800; color: #334155;">PMI Mail Client</span>
+        </div>
+
+        <div style="flex: 1; max-width: 440px; min-width: 160px; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 8px; padding: 5px 14px; font-size: 12px; color: #94A3B8; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden;">
+          <span>🔍</span>
+          <span>Keresés a hírlevelek között...</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; color: #475569; flex-shrink: 0;">
+          <span class="nl-hide-xs">tag@pmibudapest.hu</span>
+          <div style="width: 26px; height: 26px; border-radius: 50%; background: #1E1B4B; color: #FFFFFF; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;">PM</div>
+        </div>
+      </div>
+
+      <!-- 2. Kliens Eszköztár Gombok (Fix 46px) -->
+      <div style="height: 46px; min-height: 46px; max-height: 46px; background: #FFFFFF; border-bottom: 1px solid #E2E8F0; padding: 0 22px; display: flex; justify-content: space-between; align-items: center; gap: 10px; box-sizing: border-box; overflow: hidden;">
+        <div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: hidden;">
+          <button type="button" class="nl-client-action-btn" onclick="triggerClientToast('Válasz ablak megnyitva')">↩ Válasz</button>
+          <button type="button" class="nl-client-action-btn" onclick="triggerClientToast('Továbbítás előkészítve')">↪ Továbbítás</button>
+          <button type="button" class="nl-client-action-btn" onclick="triggerClientToast('Hírlevél archiválva')">📥 Archiválás</button>
+          <button type="button" class="nl-client-action-btn" onclick="triggerClientToast('Megjelölve csillaggal')">★ Kedvenc</button>
+        </div>
+        <span id="nl-client-toast" style="font-size: 11.5px; font-weight: 700; color: #7C3AED; opacity: 0; transition: opacity 0.25s ease; white-space: nowrap;"></span>
+      </div>
+
+      <!-- 3. Kliens Fő Törzs -->
+      <div class="nl-client-workspace" style="flex: 1; min-height: 0; display: grid; grid-template-columns: 240px minmax(0, 1fr); overflow: hidden;">
+        
+        <!-- Bal oldali Beérkező lista -->
+        <div style="background: #F8FAFC; border-right: 1px solid #E2E8F0; display: flex; flex-direction: column; overflow-y: auto;">
+          <div style="height: 40px; min-height: 40px; padding: 0 16px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;">
+            <span style="font-size: 11.5px; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.8px;">Beérkező</span>
+            <span style="background: #7C3AED; color: #FFFFFF; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">3</span>
+          </div>
+
+          <div class="nl-inbox-item is-active" data-inbox-index="0" onclick="selectInboxRow(0)">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+              <span style="font-size: 12px; font-weight: 800; color: #0F172A;">PMI Budapest</span>
+              <span style="font-size: 10.5px; color: #64748B;">09:41</span>
+            </div>
+            <div style="font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              PODCAST
+            </div>
+            <div style="font-size: 11px; color: #64748B; line-height: 1.35;">
+              Bevezetés a projektmenedzsment világába és az új tematikus sorozat...
+            </div>
+          </div>
+
+          <div class="nl-inbox-item" data-inbox-index="1" onclick="selectInboxRow(1)">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+              <span style="font-size: 12px; font-weight: 800; color: #0F172A;">PMI Budapest</span>
+              <span style="font-size: 10.5px; color: #64748B;">Tegnap</span>
+            </div>
+            <div style="font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              SERIES
+            </div>
+            <div style="font-size: 11px; color: #64748B; line-height: 1.35;">
+              Regisztrálj a következő budapesti szakmai estre és szerezz PDU pontokat...
+            </div>
+          </div>
+
+          <div class="nl-inbox-item" data-inbox-index="2" onclick="selectInboxRow(2)">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+              <span style="font-size: 12px; font-weight: 800; color: #0F172A;">PMI Budapest</span>
+              <span style="font-size: 10.5px; color: #64748B;">Nov 14.</span>
+            </div>
+            <div style="font-size: 11.5px; font-weight: 700; color: #334155; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              COMMUNITY
+            </div>
+            <div style="font-size: 11px; color: #64748B; line-height: 1.35;">
+              Így építs szakmai hálózatot a tagozati projektekben való részvétellel...
+            </div>
+          </div>
+        </div>
+
+        <!-- Jobb oldali Olvasópanel -->
+        <div style="display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #FFFFFF; overflow: hidden;">
+          <div style="height: 92px; min-height: 92px; max-height: 92px; padding: 14px 26px; border-bottom: 1px solid #E2E8F0; background: #FFFFFF; box-sizing: border-box; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px;">
+              <h3 id="nl-client-subject" style="font-size: 17px; font-weight: 800; color: #0F172A; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                PMI Budapest • PODCAST
+              </h3>
+              <span style="font-size: 10.5px; font-weight: 700; background: #F1F5F9; color: #475569; padding: 3px 9px; border-radius: 6px; white-space: nowrap; flex-shrink: 0;">
+                Beérkező
+              </span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #1E1B4B, #7C3AED); color: #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+                </div>
+                <div style="min-width: 0;">
+                  <div style="font-size: 12.5px; font-weight: 700; color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    PMI Budapest, Hungarian Chapter<span style="font-weight: 400; color: #64748B;">&lt;hirlevel@pmibudapest.hu&gt;</span>
+                  </div>
+                  <div style="font-size: 11px; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Címzett: én (tag@pmibudapest.hu)
+                  </div>
+                </div>
+              </div>
+              <div id="nl-client-time" style="font-size: 11.5px; font-weight: 600; color: #64748B; flex-shrink: 0;">
+                09:41
+              </div>
+            </div>
+          </div>
+
+          <iframe id="nl-client-frame" title="Hírlevél kliens előnézet" style="width: 100%; flex: 1; min-height: 0; border: none; background: #FFFFFF; display: block;"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<style>
+    #nl-phone-frame,
+    #nl-client-frame {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #nl-phone-frame::-webkit-scrollbar,
+    #nl-client-frame::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <script>
+    (function () {
+      let nlAutoScrollRaf = null;
+      let nlAutoScrollPaused = false;
+      let nlPauseTimer = null;
+      const speedPxPerSec = 95; // Gyorsabb automatikus görgetés (px / mp)
+
+      function pauseNlAutoScrollTemporarily(ms) {
+        nlAutoScrollPaused = true;
+        clearTimeout(nlPauseTimer);
+        nlPauseTimer = setTimeout(function () {
+          nlAutoScrollPaused = false;
+        }, ms || 2800);
+      }
+
+      function getActiveScrollTargets() {
+        const targets = [];
+        ['nl-phone-frame', 'nl-client-frame'].forEach(function (id) {
+          const iframe = document.getElementById(id);
+          if (!iframe) return;
+          try {
+            const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+            const scroller = doc ? (doc.scrollingElement || doc.documentElement || doc.body) : null;
+            if (scroller && scroller.scrollHeight > scroller.clientHeight + 4) {
+              targets.push(scroller);
+            }
+          } catch (e) {
+            // Külső/korlátozott iframe esetén biztonságosan kihagyva
+          }
+        });
+        return targets;
+      }
+
+      window.triggerNlAutoScrollBoost = function () {
+        nlAutoScrollPaused = false;
+        clearTimeout(nlPauseTimer);
+
+        const targets = getActiveScrollTargets();
+        if (targets.length > 0) {
+          targets.forEach(function (el) {
+            const maxScroll = el.scrollHeight - el.clientHeight;
+            const nextTop = el.scrollTop + 260;
+            el.scrollTo({
+              top: nextTop >= maxScroll - 4 ? 0 : nextTop,
+              behavior: 'smooth'
+            });
+          });
+          pauseNlAutoScrollTemporarily(1800);
+        } else {
+          window.scrollBy({ top: 320, behavior: 'smooth' });
+        }
+      };
+
+      function startNlAutoScroll() {
+        if (nlAutoScrollRaf) {
+          cancelAnimationFrame(nlAutoScrollRaf);
+          nlAutoScrollRaf = null;
+        }
+        nlAutoScrollPaused = false;
+
+        let lastTime = performance.now();
+
+        function step(now) {
+          const dt = Math.min(0.05, (now - lastTime) / 1000);
+          lastTime = now;
+
+          if (!nlAutoScrollPaused) {
+            const targets = getActiveScrollTargets();
+            targets.forEach(function (el) {
+              const maxScroll = el.scrollHeight - el.clientHeight;
+              if (el.scrollTop >= maxScroll - 1) {
+                el.scrollTop = 0;
+              } else {
+                el.scrollTop += speedPxPerSec * dt;
+              }
+            });
+          }
+
+          nlAutoScrollRaf = requestAnimationFrame(step);
+        }
+
+        nlAutoScrollRaf = requestAnimationFrame(step);
+      }
+
+      function attachIframeListeners(iframeId) {
+        const iframe = document.getElementById(iframeId);
+        if (!iframe) return;
+
+        iframe.addEventListener('load', function () {
+          try {
+            const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+            if (!doc) return;
+            const styleEl = doc.createElement('style');
+            styleEl.textContent = 'html, body { scrollbar-width: none; -ms-overflow-style: none; } html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }';
+            doc.head && doc.head.appendChild(styleEl);
+
+            ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (ev) {
+              doc.addEventListener(ev, function () {
+                pauseNlAutoScrollTemporarily(3000);
+              }, { passive: true });
+            });
+            doc.addEventListener('mouseenter', function () {
+              nlAutoScrollPaused = true;
+            });
+            doc.addEventListener('mouseleave', function () {
+              nlAutoScrollPaused = false;
+            });
+          } catch (e) {
+            // Biztonságos fallback
+          }
+          startNlAutoScroll();
+        });
+      }
+
+      // „Görgess” animáció beszúrása a telefonos sáv és az asztali kliens mellé
+      function ensureNlScrollCues() {
+        const phoneContainer = document.querySelector('#nl-iphone-frame') && document.querySelector('#nl-iphone-frame').parentElement;
+        if (phoneContainer && !document.getElementById('nl-phone-scroll-cue')) {
+          phoneContainer.style.position = 'relative';
+          const cue = document.createElement('div');
+          cue.id = 'nl-phone-scroll-cue';
+          cue.className = 'side-scroll-cue';
+          cue.title = 'Kattints a görgetéshez';
+          cue.style.cssText = 'cursor: pointer; position: absolute; right: -54px; top: 50%; transform: translateY(-50%);';
+          cue.innerHTML = '<div class="mouse-track"><div class="mouse-wheel"></div></div><div class="scroll-chevrons"><span></span><span></span><span></span></div><span class="scroll-label">Görgess</span>';
+          cue.addEventListener('click', window.triggerNlAutoScrollBoost);
+          phoneContainer.appendChild(cue);
+        }
+
+        const desktopBox = document.querySelector('#nl-desktop-block > div:last-child');
+        if (desktopBox && !document.getElementById('nl-desktop-scroll-cue')) {
+          const wrapper = document.createElement('div');
+          wrapper.style.cssText = 'display: flex; align-items: center; gap: 18px; width: 100%;';
+          desktopBox.parentNode.insertBefore(wrapper, desktopBox);
+          wrapper.appendChild(desktopBox);
+
+          const cue = document.createElement('div');
+          cue.id = 'nl-desktop-scroll-cue';
+          cue.className = 'side-scroll-cue';
+          cue.title = 'Kattints a görgetéshez';
+          cue.style.cssText = 'cursor: pointer; flex-shrink: 0;';
+          cue.innerHTML = '<div class="mouse-track"><div class="mouse-wheel"></div></div><div class="scroll-chevrons"><span></span><span></span><span></span></div><span class="scroll-label">Görgess</span>';
+          cue.addEventListener('click', window.triggerNlAutoScrollBoost);
+          wrapper.appendChild(cue);
+        }
+      }
+
+      attachIframeListeners('nl-phone-frame');
+      attachIframeListeners('nl-client-frame');
+      ensureNlScrollCues();
+      startNlAutoScroll();
+    })();
+  </script>
+</section>
+
+<style>
+  .nl-tab-btn {
+    padding: 11px 18px;
+    border-radius: 999px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #0F172A;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .nl-tab-btn:hover {
+    border-color: #7C3AED;
+    color: #6D28D9;
+  }
+
+  .nl-tab-btn.is-active {
+    background: #1E1B4B;
+    border-color: #1E1B4B;
+    color: #FFFFFF;
+    box-shadow: 0 10px 22px -10px rgba(30, 27, 75, 0.55);
+  }
+
+  .nl-device-btn {
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #334155;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .nl-device-btn:hover {
+    border-color: #7C3AED;
+    color: #6D28D9;
+  }
+
+  .nl-device-btn.is-active {
+    background: #7C3AED;
+    border-color: #7C3AED;
+    color: #FFFFFF;
+  }
+
+  .nl-client-action-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    color: #334155;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .nl-client-action-btn:hover {
+    background: #EEF2FF;
+    border-color: #A5B4FC;
+    color: #1E1B4B;
+  }
+
+  .nl-inbox-item {
+    padding: 13px 16px;
+    border-bottom: 1px solid #E2E8F0;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .nl-inbox-item:hover {
+    background: #F1F5F9;
+  }
+
+  .nl-inbox-item.is-active {
+    background: #FFFFFF;
+    border-left-color: #7C3AED;
+  }
+
+  @media (max-width: 920px) {
+    #newsletter .nl-top-row {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
+  }
+
+  @media (max-width: 720px) {
+    #newsletter .nl-client-workspace {
+      grid-template-columns: 1fr !important;
+    }
+    #newsletter .nl-hide-xs {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  const NL_FALLBACK_TEMPLATES = {
+    "newsletters/hirlevel-1.html": `<!DOCTYPE html><html lang="hu"><head><meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        html, body { margin: 0; padding: 0; width: 100%; background: #FFFFFF; color: #0F172A; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif; line-height: 1.65; overflow-x: hidden; }
+        * { box-sizing: border-box; overflow-wrap: anywhere; word-break: break-word; }
+        .wrap { padding: 26px; }
+        .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid #E2E8F0; }
+        .tag { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #7C3AED; }
+        .badge { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #64748B; }
+        h1 { font-size: 22px; line-height: 1.28; font-weight: 800; margin: 0 0 12px; letter-spacing: -0.4px; color: #0F172A; }
+        p { color: #475569; font-size: 14px; margin: 0 0 18px; }
+        .cta { display: inline-block; padding: 10px 18px; background: linear-gradient(135deg, #1E1B4B 0%, #4C1D95 100%); color: #FFFFFF; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 700; }
+      </style></head><body>
+        <div class="wrap">
+          <div class="top">
+            <span class="tag">01 &bull; Friss feliratkozóknak</span>
+            <span class="badge">PMI Budapest</span>
+          </div>
+          <h1>Üdvözlünk a projektmenedzsment világában</h1>
+          <p>Örülünk, hogy csatlakoztál a PMI Budapest, Hungarian Chapter közösségéhez. A 12 részes sorozat első fejezeteiben a projekt és az operatív működés határvonalát, valamint a célok és erőforrások összehangolását járjuk körül.</p>
+          <a class="cta" href="#curriculum">Tematika megnyitása</a>
+        </div>
+      </body></html>`,
+    "newsletters/hirlevel-2.html": `<!DOCTYPE html><html lang="hu"><head><meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        html, body { margin: 0; padding: 0; width: 100%; background: #FFFFFF; color: #0F172A; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif; line-height: 1.65; overflow-x: hidden; }
+        * { box-sizing: border-box; overflow-wrap: anywhere; word-break: break-word; }
+        .wrap { padding: 26px; }
+        .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid #E2E8F0; }
+        .tag { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #EA580C; }
+        .badge { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #64748B; }
+        h1 { font-size: 22px; line-height: 1.28; font-weight: 800; margin: 0 0 12px; letter-spacing: -0.4px; color: #0F172A; }
+        p { color: #475569; font-size: 14px; margin: 0 0 18px; }
+        .cta { display: inline-block; padding: 10px 18px; background: #EA580C; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 700; }
+      </style></head><body>
+        <div class="wrap">
+          <div class="top">
+            <span class="tag">02 &bull; Események &amp; PDU</span>
+            <span class="badge">PMI Budapest</span>
+          </div>
+          <h1>Közelgő budapesti szakmai estek és workshopok</h1>
+          <p>Csatlakozz a következő tagozati találkozóhoz, ismerd meg a gyakorlati esettanulmányokat, és szerezz PDU pontokat a részvétellel.</p>
+          <a class="cta" href="#events">Eseménynaptár</a>
+        </div>
+      </body></html>`,
+    "newsletters/hirlevel-3.html": `<!DOCTYPE html><html lang="hu"><head><meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        html, body { margin: 0; padding: 0; width: 100%; background: #FFFFFF; color: #0F172A; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif; line-height: 1.65; overflow-x: hidden; }
+        * { box-sizing: border-box; overflow-wrap: anywhere; word-break: break-word; }
+        .wrap { padding: 26px; }
+        .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid #E2E8F0; }
+        .tag { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #0284C7; }
+        .badge { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #64748B; }
+        h1 { font-size: 22px; line-height: 1.28; font-weight: 800; margin: 0 0 12px; letter-spacing: -0.4px; color: #0F172A; }
+        p { color: #475569; font-size: 14px; margin: 0 0 18px; }
+        .cta { display: inline-block; padding: 10px 18px; background: #0284C7; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 700; }
+      </style></head><body>
+        <div class="wrap">
+          <div class="top">
+            <span class="tag">03 &bull; Közösség &amp; Önkéntesség</span>
+            <span class="badge">PMI Budapest</span>
+          </div>
+          <h1>Így építs szakmai hálózatot önkéntesként</h1>
+          <p>A tagozati projektekben való részvétel valódi felelősséget, mentorálást és gyakorlati tapasztalatot ad a kezdő és haladó projektvezetőknek egyaránt.</p>
+          <a class="cta" href="#community">Közösségi oldal</a>
+        </div>
+      </body></html>`
+  };
+
+  function switchPhoneSize(btnEl) {
+    document.querySelectorAll("#nl-device-switcher .nl-device-btn").forEach(b => b.classList.remove("is-active"));
+    btnEl.classList.add("is-active");
+
+    const os = btnEl.getAttribute("data-os");
+    const frame = document.getElementById("nl-iphone-frame");
+    const screen = document.getElementById("nl-iphone-screen");
+    const tag = document.getElementById("nl-phone-model-tag");
+    const island = document.getElementById("nl-ios-island");
+    const punchhole = document.getElementById("nl-android-punchhole");
+    const backBtn = document.getElementById("nl-mail-back");
+    const arrows = document.getElementById("nl-mail-arrows");
+    const bottomBar = document.getElementById("nl-mail-bottombar");
+
+    if (frame) {
+      frame.style.width = btnEl.getAttribute("data-width");
+      frame.style.height = btnEl.getAttribute("data-height");
+      frame.style.borderRadius = btnEl.getAttribute("data-radius");
+    }
+    if (screen) {
+      screen.style.borderRadius = btnEl.getAttribute("data-screen-radius");
+    }
+    if (tag) {
+      tag.textContent = btnEl.getAttribute("data-label") + " • 5G";
+    }
+
+    const isAndroid = os === "android";
+    if (island) island.style.display = isAndroid ? "none" : "flex";
+    if (punchhole) punchhole.style.display = isAndroid ? "block" : "none";
+    if (backBtn) backBtn.style.color = isAndroid ? "#4F46E5" : "#2563EB";
+    if (arrows) arrows.style.color = isAndroid ? "#4F46E5" : "#2563EB";
+    if (bottomBar) bottomBar.style.color = isAndroid ? "#4F46E5" : "#2563EB";
+  }
+
+  function withFrameSafeCss(html, extraCss = "") {
+    return `
+      <style>
+        * { box-sizing: border-box; overflow-wrap: anywhere; word-break: break-word; }
+        img { max-width: 100% !important; height: auto !important; }
+        ${extraCss}
+      </style>
+      ${html}
+    `;
+  }
+
+  async function renderNewsletterFromFile(filePath, subjectText, timeText, index) {
+    const phoneFrame = document.getElementById("nl-phone-frame");
+    const clientFrame = document.getElementById("nl-client-frame");
+    const pathEl = document.getElementById("nl-active-path");
+    const statusEl = document.getElementById("nl-load-status");
+    const clientSubjectEl = document.getElementById("nl-client-subject");
+    const phoneSubjectEl = document.getElementById("nl-phone-subject");
+    const clientTimeEl = document.getElementById("nl-client-time");
+    const phoneTimeEl = document.getElementById("nl-phone-time");
+
+    if (pathEl) pathEl.textContent = filePath;
+    if (clientSubjectEl) clientSubjectEl.textContent = subjectText;
+    if (phoneSubjectEl) phoneSubjectEl.textContent = subjectText;
+    if (clientTimeEl) clientTimeEl.textContent = timeText;
+    if (phoneTimeEl) phoneTimeEl.textContent = timeText;
+    if (statusEl) statusEl.textContent = "Betöltés...";
+
+    document.querySelectorAll("#newsletter .nl-inbox-item").forEach(item => {
+      item.classList.toggle("is-active", item.getAttribute("data-inbox-index") === String(index));
+    });
+
+    let htmlContent = "";
+
+    try {
+      const response = await fetch(filePath, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+      htmlContent = await response.text();
+      if (statusEl) statusEl.textContent = "Betöltve külső fájlból";
+    } catch (err) {
+      htmlContent = NL_FALLBACK_TEMPLATES[filePath] || "<p style='padding:20px;font-family:sans-serif;'>A hírlevél fájl nem érhető el.</p>";
+      if (statusEl) statusEl.textContent = "Előnézeti sablon";
+    }
+
+    if (phoneFrame) {
+      phoneFrame.srcdoc = withFrameSafeCss(htmlContent, "table { width: 100% !important; max-width: 100% !important; }");
+    }
+    if (clientFrame) {
+      clientFrame.srcdoc = withFrameSafeCss(htmlContent);
+    }
+  }
+
+  function switchNewsletter(buttonEl) {
+    document.querySelectorAll("#nl-switcher .nl-tab-btn").forEach(btn => btn.classList.remove("is-active"));
+    buttonEl.classList.add("is-active");
+
+    renderNewsletterFromFile(
+      buttonEl.getAttribute("data-nl-file"),
+      buttonEl.getAttribute("data-nl-subject"),
+      buttonEl.getAttribute("data-nl-time"),
+      buttonEl.getAttribute("data-nl-index")
+    );
+  }
+
+  function selectInboxRow(index) {
+    const targetBtn = document.querySelector(`#nl-switcher .nl-tab-btn[data-nl-index="${index}"]`);
+    if (targetBtn) {
+      switchNewsletter(targetBtn);
+    }
+  }
+
+  let nlToastTimer = null;
+  function triggerClientToast(message) {
+    const toastEl = document.getElementById("nl-client-toast");
+    if (!toastEl) return;
+    toastEl.textContent = message;
+    toastEl.style.opacity = "1";
+    clearTimeout(nlToastTimer);
+    nlToastTimer = setTimeout(() => {
+      toastEl.style.opacity = "0";
+    }, 2200);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const activeBtn = document.querySelector("#nl-switcher .nl-tab-btn.is-active");
+    if (activeBtn) {
+      switchNewsletter(activeBtn);
+    }
+  });
+</script>
+
+    <!-- 2. BLOG KONCEPCIÓ (IPHONE MOCKUP) -->
+<!-- BLOG / JAVÍTOTT FACEBOOK-STÍLUSÚ HÍRFOLYAM -->
+<section id="blog" class="concept-section" style="width: 100%; max-width: 1480px; margin: 0 auto; padding: 32px 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+  <!-- Nézetváltó vezérlősáv -->
+<div style="padding: 0 4%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px; padding-bottom: 18px; border-bottom: 1px solid #DADDE1; margin-bottom: 24px;">
+    <div>
+      <span style="display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; color: #1877F2; margin-bottom: 6px;">
+        Közösségi hírfolyam Nézet &bull; 1:1 Képek
+      </span>
+      <h2 style="font-size: 28px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin: 0 0 6px 0; color: #050505;">
+        KREATÍV TERVEZETEK
+      </h2>
+      <p style="font-size: 14px; line-height: 1.6; color: #65676B; margin: 0; max-width: 680px;">
+        A kreatívok elkészítése során Photoshop, Canva szerkesztőprogramokban kerül elkészítésre a sablon, dokumentációval + megfelelő rétegzéskezeléssel. Arculati elemek (fix színek, tipográfia) meghatározását követően egységesítés is történhet a kreatívokon szereplő főbb elemek esetében.
+      </p>
+    </div>
+  </div>
+
+    <!-- Nézetválasztó gombok -->
+    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+      <div role="group" aria-label="Laptop és monitor nézetek" style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button type="button" class="blog-view-btn"
+          data-mode="desktop"
+          data-width="760px"
+          data-label="MacBook Air"
+          onclick="switchBlogViewport(this)"
+          style="padding: 7px 12px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 12px; font-weight: 700; cursor: pointer;">
+          MacBook Air
+        </button>
+        <button type="button" class="blog-view-btn is-active"
+          data-mode="desktop"
+          data-width="840px"
+          data-label="MacBook Pro"
+          onclick="switchBlogViewport(this)"
+          style="padding: 7px 12px; border-radius: 6px; border: 1px solid #1877F2; background: #1877F2; color: #FFFFFF; font-size: 12px; font-weight: 700; cursor: pointer;">
+          MacBook Pro
+        </button>
+        <button type="button" class="blog-view-btn"
+          data-mode="desktop"
+          data-width="980px"
+          data-label="24&quot; Monitor"
+          onclick="switchBlogViewport(this)"
+          style="padding: 7px 12px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 12px; font-weight: 700; cursor: pointer;">
+          24" Monitor
+        </button>
+      </div>
+
+      <!-- 3-3 Mobil CSS viewport szélesség -->
+      <div role="group" aria-label="Telefon nézetek" style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button type="button" class="blog-view-btn"
+          data-mode="phone"
+          data-width="393px"
+          data-label="iPhone 16"
+          onclick="switchBlogViewport(this)"
+          style="padding: 6px 10px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 11.5px; font-weight: 600; cursor: pointer;">
+          iPhone 16 (393px)
+        </button>
+        <button type="button" class="blog-view-btn"
+          data-mode="phone"
+          data-width="402px"
+          data-label="iPhone 16 Pro"
+          onclick="switchBlogViewport(this)"
+          style="padding: 6px 10px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 11.5px; font-weight: 600; cursor: pointer;">
+          16 Pro (402px)
+        </button>
+        <button type="button" class="blog-view-btn"
+          data-mode="phone"
+          data-width="440px"
+          data-label="16 Pro Max"
+          onclick="switchBlogViewport(this)"
+          style="padding: 6px 10px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 11.5px; font-weight: 600; cursor: pointer;">
+          16 Pro Max (440px)
+        </button>
+        <button type="button" class="blog-view-btn"
+          data-mode="phone"
+          data-width="360px"
+          data-label="Galaxy S24"
+          onclick="switchBlogViewport(this)"
+          style="padding: 6px 10px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 11.5px; font-weight: 600; cursor: pointer;">
+          Galaxy S24 (360px)
+        </button>
+        <button type="button" class="blog-view-btn"
+          data-mode="phone"
+          data-width="384px"
+          data-label="Galaxy S24+"
+          onclick="switchBlogViewport(this)"
+          style="padding: 6px 10px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 11.5px; font-weight: 600; cursor: pointer;">
+          Galaxy S24+ (384px)
+        </button>
+        <button type="button" class="blog-view-btn"
+          data-mode="phone"
+          data-width="412px"
+          data-label="S24 Ultra"
+          onclick="switchBlogViewport(this)"
+          style="padding: 6px 10px; border-radius: 6px; border: 1px solid #CCD0D5; background: #FFFFFF; color: #050505; font-size: 11.5px; font-weight: 600; cursor: pointer;">
+          S24 Ultra (412px)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aktív nézet sáv -->
+  <div style="padding: 0 4%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 12.5px; color: #65676B;">
+    <span>Aktív nézet: <strong id="blog-active-view-label" style="color: #050505;">MacBook Pro</strong></span>
+    <span id="blog-active-width-label">Max szélesség: 840px</span>
+  </div>
+
+  <!-- Feed konténer + görgetésjelző -->
+  <div id="blog-outer-wrapper" class="preview-wrapper" style="width: 100%; display: flex; justify-content: center; align-items: flex-start; gap: 18px; padding: 0 4%; box-sizing: border-box;">
+    <div id="blog-viewport-stage" style="width: 100%; max-width: 840px; background: #F0F2F5; border-radius: 12px; border: 1px solid #CCD0D5; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12); overflow: hidden; transition: all 0.25s ease; box-sizing: border-box;">
+
+      <!-- Mobil felső sáv (notch + státuszsáv) -->
+      <div id="blog-phone-top" style="display: none; background: #FFFFFF; color: #050505; border-bottom: 1px solid #E4E6EB;">
+        <div id="blog-phone-notch" style="display: flex; justify-content: center; padding-top: 8px;">
+          <div style="width: 76px; height: 18px; border-radius: 999px; background: #0F172A; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; box-sizing: border-box;">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: #1E293B;"></span>
+          </div>
+        </div>
+        <div id="blog-phone-statusbar" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 16px 8px 16px; font-size: 11.5px; font-weight: 700; color: #050505;">
+          <span>9:41</span>
+          <span>5G • 100%</span>
+        </div>
+      </div>
+
+      <!-- Görgethető képernyő / feed tartalom -->
+      <div id="blog-scrollable-screen" style="width: 100%; background: #F0F2F5; box-sizing: border-box;">
+
+        <!-- Facebook Top Bar -->
+        <div id="blog-fb-topbar" style="background: #FFFFFF; color: #050505; padding: 10px 14px; border-bottom: 1px solid #E4E6EB; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+            <span style="font-size: 20px; font-weight: 900; color: #1877F2; letter-spacing: -0.6px; line-height: 1;">facebook</span>
+            <span id="blog-topbar-title" style="font-size: 12.5px; font-weight: 700; color: #65676B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">• MacBook Pro</span>
+          </div>
+          <span id="blog-topbar-meta" style="font-size: 11px; font-weight: 600; color: #65676B; flex-shrink: 0;">Hírfolyam</span>
+        </div>
+
+        <!-- Egymás alatti Facebook posztok -->
+        <div id="pmi-social-feed" style="padding: 14px; display: flex; flex-direction: column; gap: 14px;">
+<!-- POSZT 1 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">2 órája • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Facebook-stílusú szöveg Olvass tovább gombbal és hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;">⏰ Ne akkor kapj észbe, amikor már ég a ház! 🔥
+
+Volt már olyan projekted, ahol utólag kiderült, hogy a problémát előre is lehetett volna látni? 🤔
+
+A jó hír: a kockázatmenedzsment nem varázslat, és nem is feltétlenül bonyolult adminisztráció. Néhány jól bevált módszerrel sok kellemetlen meglepetés megelőzhető!<span class="fb-more-dots">... </span><span class="fb-more-body" style="display: none;">
+
+☕ Hamarosan újabb PMI Budapest Lunch &amp; Learn!
+
+🎤 Mikes Péter, PMP ezúttal a kockázatmenedzsment gyakorlati oldalát mutatja meg nekünk.
+
+Beszélünk arról, hogyan lehet:
+✅ a csapatból előcsalogatni a fontos információkat,
+✅ időben kiszúrni a figyelmeztető jeleket,
+✅ a kockázatokat folyamatosan szem előtt tartani,
+✅ és mindezt egyszerű, használható eszközökkel támogatni.
+
+📅 November 6., péntek
+🕛 12:00–13:00
+💻 Online, Zoomon
+🗣️ Magyar nyelven
+
+☕ Egy óra ebédidőben, sok hasznos ötlettel!
+
+👉 Még nem regisztráltál? Itt az ideje!
+
+🔗 Regisztráció: <a href="https://pmi.hu/calendar?eventId=48002" target="_blank" rel="noopener noreferrer" style="color: #1877F2; text-decoration: none; word-break: break-all;">https://pmi.hu/calendar?eventId=48002</a></span></div>
+              <span style="color: #1877F2; font-size: 14px; line-height: 1.45;">
+                #PMIBudapest #LunchAndLearn #Kockázatmenedzsment #Projektmenedzsment
+              </span>
+            <div style="margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+              <button type="button" class="fb-read-more-btn" onclick="toggleFbReadMore(this)" style="background: none; border: none; padding: 0; color: #65676B; font-size: 13.5px; font-weight: 700; cursor: pointer;">
+                Olvass tovább
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/2.png" alt="PMI Budapest Lunch & Learn – Kockázatmenedzsment" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <!-- Reakció számláló sor -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">38</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">1</span> hozzászólás</span>
+              <span><span class="fb-share-count">4</span> megosztás</span>
+            </div>
+          </div>
+
+          <!-- Facebook műveleti gombok -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <!-- Kommentek + űrlap -->
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <div style="width: 28px; height: 28px; border-radius: 50%; background: #CED0D4; color: #050505; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">AK</div>
+                <div style="background: #F0F2F5; padding: 8px 12px; border-radius: 16px; font-size: 13px; color: #050505;">
+                  <strong style="display: block; font-size: 12.5px;">Anna K.</strong>
+                  Nálunk sokat segített, ha mindig röviden leírtuk, mit jelent a „kész”.
+                </div>
+              </div>
+            </div>
+
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+
+          <script>
+            if (typeof toggleFbReadMore !== 'function') {
+              window.toggleFbReadMore = function (btn) {
+                const card = btn.closest('.fb-post-card');
+                if (!card) return;
+                const dots = card.querySelector('.fb-more-dots');
+                const body = card.querySelector('.fb-more-body');
+                if (!body) return;
+
+                const isExpanded = body.style.display === 'inline';
+                if (isExpanded) {
+                  body.style.display = 'none';
+                  if (dots) dots.style.display = 'inline';
+                  btn.textContent = 'Olvass tovább';
+                } else {
+                  body.style.display = 'inline';
+                  if (dots) dots.style.display = 'none';
+                  btn.textContent = 'Kevesebb';
+                }
+              };
+            }
+          </script>
+        </article>
+
+<!-- POSZT 2 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">2 órája • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Facebook-stílusú szöveg Olvass tovább gombbal és hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;">🤖 Vajon hogyan "látja" az AI a projektedet?
+A mesterséges intelligencia ma már nemcsak szöveget ír vagy összefoglalókat készít – hanem egyre inkább segít a projektek tudásának feldolgozásában, összekapcsolásában és értelmezésében is.<span class="fb-more-dots">... </span><span class="fb-more-body" style="display: none;">
+📅 Július 9-én egy izgalmas Lunch &amp; Learn előadáson megmutatjuk, hogyan jutottunk el a projekt tudásgráfoktól az intelligens AI ügynökökig – két valós projekt tapasztalatain keresztül.
+Megtudhatod többek között:
+✨ hogyan alakítja át az AI a projektmenedzsmentet,
+✨ mi az a projekt tudásgráf, és mire használható,
+✨ milyen hatással voltak a nagy nyelvi modellek (LLM-ek) erre a területre,
+✨ és hogyan épülnek ezekre a vállalati AI ügynökök. 
+🎤 Előadónk Csepeli Csaba több mint 20 éve dolgozik projektmenedzserként, és az elmúlt években hazai AI kutatási projektek vezetésében is részt vett. Ha érdekel, hogyan találkozik a projektmenedzsment és a mesterséges intelligencia a gyakorlatban, ezt az előadást nem érdemes kihagyni!
+📍 Az esemény magyar nyelvű.
+🎟 A részvétel ingyenes, de regisztrációhoz kötött.
+Az eseményről részletes információ itt érhető el: <a href="https://pmi.hu/calendar?eventId=47119" target="_blank" rel="noopener noreferrer" style="color: #1877F2; text-decoration: none; word-break: break-all;">https://pmi.hu/calendar?eventId=47119</a>
+👉 Jelentkezés: <a href="https://us06web.zoom.us/meeting/register/hcgZ95RoRTi8be-AVNsvHg" target="_blank" rel="noopener noreferrer" style="color: #1877F2; text-decoration: none; word-break: break-all;">https://us06web.zoom.us/.../register/hcgZ95RoRTi8be-AVNsvHg</a>
+Találkozzunk július 9-én! 🚀</span></div>
+
+            <div style="margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+              <button type="button" class="fb-read-more-btn" onclick="toggleFbReadMore(this)" style="background: none; border: none; padding: 0; color: #65676B; font-size: 13.5px; font-weight: 700; cursor: pointer;">
+                Olvass tovább
+              </button>
+              <span style="color: #1877F2; font-size: 14px; line-height: 1.45;">
+                #PMIBudapest #LunchAndLearn #Projektmenedzsment #MesterségesIntelligencia #AI #Projektvezetés #KnowledgeGraph #LLM #AIAgents #DigitalTransformation
+              </span>
+            </div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/1.png" alt="PMI Budapest Lunch & Learn – AI és projekt tudásgráfok" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <!-- Reakció számláló sor -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">38</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">1</span> hozzászólás</span>
+              <span><span class="fb-share-count">4</span> megosztás</span>
+            </div>
+          </div>
+
+          <!-- Facebook műveleti gombok -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <!-- Kommentek + űrlap -->
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <div style="width: 28px; height: 28px; border-radius: 50%; background: #CED0D4; color: #050505; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">AK</div>
+                <div style="background: #F0F2F5; padding: 8px 12px; border-radius: 16px; font-size: 13px; color: #050505;">
+                  <strong style="display: block; font-size: 12.5px;">Anna K.</strong>
+                  Nagyon aktuális téma, kíváncsi vagyok a tudásgráfos példákra!
+                </div>
+              </div>
+            </div>
+
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+
+          <script>
+            if (typeof toggleFbReadMore !== 'function') {
+              window.toggleFbReadMore = function (btn) {
+                const card = btn.closest('.fb-post-card');
+                if (!card) return;
+                const dots = card.querySelector('.fb-more-dots');
+                const body = card.querySelector('.fb-more-body');
+                if (!body) return;
+
+                const isExpanded = body.style.display === 'inline';
+                if (isExpanded) {
+                  body.style.display = 'none';
+                  if (dots) dots.style.display = 'inline';
+                  btn.textContent = 'Olvass tovább';
+                } else {
+                  body.style.display = 'inline';
+                  if (dots) dots.style.display = 'none';
+                  btn.textContent = 'Kevesebb';
+                }
+              };
+            }
+          </script>
+        </article>
+
+<!-- POSZT 3 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">3 napja • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Rövid, természetes bevezető szöveg hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;">Készül nálunk valami a háttérben. 👀
+
+A következő hetekben több újdonsággal is jövünk a tagozatnál – érdemes figyelni a feedet, hamarosan megmutatjuk, min dolgozunk.</div>
+
+            <div style="margin-top: 8px; color: #1877F2; font-size: 14px; line-height: 1.45;">
+              #PMIBudapest #Projektmenedzsment #Közösség #Hamarosan
+            </div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/3.png" alt="Együttműködés és beszélgetés egy csapatban" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">44</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">0</span> hozzászólás</span>
+              <span><span class="fb-share-count">5</span> megosztás</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;"></div>
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+        </article>
+
+<!-- POSZT 4 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">3 napja • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Rövid, természetes bevezető szöveg hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;">🍻 PM PUB Update – New Venue &amp; More Seats Available! 🎉
+
+Looks like AI governance and digital regulations are hot topics! 🔥
+
+We've received so much interest in our upcoming PM PUB on November 19 that we've decided to make room for more participants!<span class="fb-read-more-dots">...</span><div class="fb-read-more-wrap" style="margin-top: 4px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='none'; box.querySelector('.fb-read-more-wrap').style.display='none'; box.querySelector('.fb-more-content').style.display='inline';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Olvass tovább...</button></div><span class="fb-more-content" style="display: none;">
+
+And there's another important update: we're moving to Fiktív Café! 📍
+
+Still wondering what the AI Act, GDPR, NIS2, and DSA actually mean for your projects? Or how to navigate the growing number of digital regulations without getting lost in legal jargon? 🤔
+
+Come and join the conversation!
+
+🎤 Our guest, <span style="color: #1877F2; font-weight: 600;">@Dr. János Kopasz</span>, AI governance and digital compliance expert at Taylor Wessing Budapest, will help us make sense of these challenges and their practical implications for project managers.
+
+🎙️ <span style="color: #1877F2; font-weight: 600;">@Péter Miliás</span> from <span style="color: #1877F2; font-weight: 600;">@PMI Budapest</span> will host the discussion.
+
+📅 When? November 19, 18:00–21:00
+📍 NEW LOCATION: Fiktív Café, Soroksári út 48, 1097 Budapest (Malomudvar Üzletház)
+🚗 Coming by car? Parking is available right at Malomudvar Üzletház for 500 HUF/hour.
+🌍 Language: English
+🎓 PDUs: 2
+
+Expect interesting discussions, practical insights, great networking, and the usual relaxed PM PUB atmosphere! 🍺
+
+👉 More seats are available, so don't miss your chance to join us!
+
+🔗 Register here: <a href="https://pmi.hu/calendar?eventId=48120" target="_blank" style="color: #1877F2; text-decoration: none;">https://pmi.hu/calendar?eventId=48120</a>
+
+🍻 See you at Fiktív Café on November 19!<div style="margin-top: 8px; color: #1877F2; font-size: 14px; line-height: 1.45;">#PMIBudapest #PMPUB #AIGovernance #AIAct #ProjectManagement #Networking</div><div style="margin-top: 6px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='inline'; box.querySelector('.fb-read-more-wrap').style.display='block'; box.querySelector('.fb-more-content').style.display='none';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Kevesebb</button></div></span></div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/4.png" alt="Együttműködés és beszélgetés egy csapatban" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">44</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">0</span> hozzászólás</span>
+              <span><span class="fb-share-count">5</span> megosztás</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;"></div>
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+        </article>
+
+<!-- POSZT 5 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">3 napja • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Rövid, természetes bevezető szöveg hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;">Chapterünk hivatalosan is áttért a PMI új tagsági modelljére! 🌍💡
+
+Mostantól a Chapter- és PMI-tagság egyesül, így még egyszerűbben férhetsz majd hozzá a helyi és globális erőforrásokhoz, amelyek mind szakmai fejlődésed érdekében jöttek létre.<span class="fb-read-more-dots">...</span><div class="fb-read-more-wrap" style="margin-top: 4px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='none'; box.querySelector('.fb-read-more-wrap').style.display='none'; box.querySelector('.fb-more-content').style.display='inline';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Olvass tovább...</button></div><span class="fb-more-content" style="display: none;">
+
+👉 Csatlakozz itt: <a href="https://pmi.hu/become-a-member" target="_blank" style="color: #1877F2; text-decoration: none;">https://pmi.hu/become-a-member</a>
+
+<strong>Mit nyerhetsz a megújult PMI-tagsággal?</strong>
+✨ Egyetlen tagság, kevesebb adminisztráció
+🤝 Több lehetőség a hazai és nemzetközi kapcsolatépítésre
+📚 Exkluzív helyi és globális források (sablonok, esettanulmányok, webináriumok és a PMBOK® Guide)
+🚀 Még több támogatás a karriered építéséhez és PDU-gyűjtéshez
+🎟️ Kedvezményes vagy ingyenes részvétel a PMI Budapest eseményein és minősítési vizsgáin
+
+Jelenlegi tagjaink számára a tagsági díj végösszegében nem történik változás – ezúton is köszönjük támogatásotokat és elkötelezettségeteket!
+Ha tagságod hamarosan lejár, figyeld a PMI e-mailjeit a következő lépésekről! 📩
+Kérdésed van? Írj nekünk: <a href="mailto:info@pmi.hu" style="color: #1877F2; text-decoration: none;">info@pmi.hu</a>! 💬
+
+------------------------------------------------------------------------------
+
+🇬🇧 <strong>EN:</strong>
+Our chapter has officially transitioned to the new PMI membership model! 🌍💡
+
+From now on, chapter and PMI membership will be merged, making it even easier for you to access local and global resources, all designed to help you grow professionally.
+
+👉 Join here: <a href="https://pmi.hu/en/become-a-member" target="_blank" style="color: #1877F2; text-decoration: none;">https://pmi.hu/en/become-a-member</a>
+
+<strong>Why become a PMI Member?</strong>
+✨ One membership, less administration
+🤝 More opportunities to network locally and globally
+📚 Exclusive local and global resources (templates, case studies, webinars &amp; PMBOK® Guide access)
+🚀 More support to build your career and earn PDUs
+🎟️ Discounted or free access to PMI Budapest events and certification exams
+
+For our current members, there will be no change to the final membership fee – we appreciate your support and commitment!
+If your membership is about to expire, stay tuned to PMI emails for next steps! 📩
+Have a question? Contact us: <a href="mailto:info@pmi.hu" style="color: #1877F2; text-decoration: none;">info@pmi.hu</a>! 💬<div style="margin-top: 8px; color: #1877F2; font-size: 14px; line-height: 1.45;">#PMIBudapest #PMIMembership #Projektmenedzsment #ProjectManagement #Karrier #Networking #PDU</div><div style="margin-top: 6px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='inline'; box.querySelector('.fb-read-more-wrap').style.display='block'; box.querySelector('.fb-more-content').style.display='none';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Kevesebb</button></div></span></div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/5.png" alt="PMI Membership előnyei és új tagsági modell" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">44</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">0</span> hozzászólás</span>
+              <span><span class="fb-share-count">5</span> megosztás</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;"></div>
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+        </article>
+<!-- POSZT 6 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">3 napja • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Rövid, természetes bevezető szöveg hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;"><strong>Mit ad az értékteremtési szemlélet olyan környezetekben, ahol még az alapok is hiányoznak?</strong> 💡
+
+Hogyan fejleszthető a projektmenedzsment ott, ahol maga a működés sem kiforrott még? Ha ilyenkor sablonokkal és extra adminisztrációval indulunk, a csapat gyakran csak felesleges terhet lát benne.<span class="fb-read-more-dots">...</span><div class="fb-read-more-wrap" style="margin-top: 4px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='none'; box.querySelector('.fb-read-more-wrap').style.display='none'; box.querySelector('.fb-more-content').style.display='inline';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Olvass tovább...</button></div><span class="fb-more-content" style="display: none;">
+
+A PMI legújabb megközelítése a puszta leszállítandók helyett a valódi eredményeket állítja a középpontba – és ez nem egy újabb ráépülő réteg, hanem maga a kiindulópont:
+
+🎯 <strong>Fókuszváltás:</strong> Nem csak az számít, hogy „terv szerint” pipa került-e a feladatokra, hanem hogy milyen változást hoztunk létre és kinek lett ettől jobb.
+🗣️ <strong>Közös nyelv:</strong> „Írjunk részletesebb követelményeket” helyett arról beszélünk, hogyan kerüljük el a félreértésekből fakadó újramunkát.
+🧭 <strong>Belső igény a struktúrára:</strong> Amikor a résztvevők valódi hatást akarnak elérni, maguktól kezdik el igényelni a tudatos priorizálást és a tisztább kereteket.
+
+A szervezeti érettség nem attól nő, hogy újabb módszertanokat vezetünk be, hanem attól, hogy egyre következetesebben tudunk értéket teremteni.
+
+📖 Olvasd el a teljes cikket a blogunkon: <a href="https://pmi.hu/blog" target="_blank" style="color: #1877F2; text-decoration: none;">https://pmi.hu/blog</a><div style="margin-top: 8px; color: #1877F2; font-size: 14px; line-height: 1.45;">#PMIBudapest #Blog #Értékteremtés #Projektmenedzsment #PMBOK #Vezetés #Szervezetfejlesztés</div><div style="margin-top: 6px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='inline'; box.querySelector('.fb-read-more-wrap').style.display='block'; box.querySelector('.fb-more-content').style.display='none';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Kevesebb</button></div></span></div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/6.png" alt="Értékteremtési szemlélet a projektmenedzsmentben" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">44</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">0</span> hozzászólás</span>
+              <span><span class="fb-share-count">5</span> megosztás</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;"></div>
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+        </article>
+
+<!-- POSZT 7 -->
+        <article class="fb-post-card" style="background: #FFFFFF; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); overflow: hidden;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 8px 16px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-weight: 800; font-size: 11.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="pic/logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; display: block; border: 2px solid #1877F2; border-radius: 50%; box-sizing: border-box;" />
+              </div>
+              <div>
+                <div style="font-size: 14.5px; font-weight: 700; color: #050505; line-height: 1.25;">PMI Budapest, Hungarian Chapter</div>
+                <div style="font-size: 12px; color: #65676B;">3 napja • 🌐</div>
+              </div>
+            </div>
+            <span style="color: #65676B; font-weight: 700; font-size: 16px; padding: 0 6px;">•••</span>
+          </div>
+
+          <!-- Rövid, természetes bevezető szöveg hashtagekkel -->
+          <div style="padding: 4px 16px 12px 16px; font-size: 14.5px; color: #050505; line-height: 1.48; word-break: break-word;">
+            <div class="fb-post-text" style="white-space: pre-line;">🎙️ <strong>Új podcast-epizód: Értékteremtés ott, ahol még az alapok is hiányoznak?</strong>
+
+Hogyan lehet fejleszteni a projektmenedzsmentet olyan szervezetekben, ahol maga a működés még nem kiforrott? Erről beszélgetünk a legújabb podcast-adásban!<span class="fb-read-more-dots">...</span><div class="fb-read-more-wrap" style="margin-top: 4px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='none'; box.querySelector('.fb-read-more-wrap').style.display='none'; box.querySelector('.fb-more-content').style.display='inline';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Olvass tovább...</button></div><span class="fb-more-content" style="display: none;">
+
+A PMI legújabb megközelítése az értékteremtést állítja a középpontba – de vajon ez kiindulópontként is működik, vagy csak egy már érettebb működés következménye?
+
+🎧 <strong>Miről szól a beszélgetés?</strong>
+• Miért ütközik gyakran ellenállásba, ha alacsony érettségű környezetben sablonokkal és extra adminisztrációval indulunk?
+• Mit jelent, amikor a fókusz a „leszállított” feladatokról és folyamatokról áttevődik a valódi változásra és eredményekre?
+• Hogyan segít az érték nyelvezete csökkenteni a félreértések miatti újramunkát és a belső feszültségeket?
+• Mikor és hogyan jelenik meg a strukturált működés iránti belső igény a csapatban?
+
+Hallgasd meg az epizódot, és gondoljuk végig együtt, hogyan építkezhet a szervezet a valódi értékteremtés mentén!
+
+▶️ Hallgasd meg itt: <a href="https://pmi.hu/podcast" target="_blank" style="color: #1877F2; text-decoration: none;">https://pmi.hu/podcast</a><div style="margin-top: 8px; color: #1877F2; font-size: 14px; line-height: 1.45;">#PMIBudapest #Podcast #Értékteremtés #Projektmenedzsment #Szervezetfejlesztés #PMBOK</div><div style="margin-top: 6px;"><button type="button" onclick="const box = this.closest('.fb-post-text'); box.querySelector('.fb-read-more-dots').style.display='inline'; box.querySelector('.fb-read-more-wrap').style.display='block'; box.querySelector('.fb-more-content').style.display='none';" style="background: none; border: none; padding: 0; color: #65676B; font-weight: 600; font-size: 14.5px; font-family: inherit; cursor: pointer;">Kevesebb</button></div></span></div>
+          </div>
+
+          <!-- Teljes nézetes, kizárólag kocka (1:1) kép -->
+          <div style="width: 100%; aspect-ratio: 1 / 1; background: #E4E6EB; overflow: hidden;">
+            <img src="pic/7.png" alt="Podcast - Értékteremtési szemlélet a projektmenedzsmentben" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; font-size: 13px; color: #65676B; border-bottom: 1px solid #CED0D4;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10px;">👍</span>
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: #E41E3F; color: #FFFFFF; font-size: 10px;">❤️</span>
+              <span class="fb-like-count">44</span>
+            </div>
+            <div style="display: flex; gap: 12px;">
+              <span><span class="fb-comment-count">0</span> hozzászólás</span>
+              <span><span class="fb-share-count">5</span> megosztás</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px 8px; border-bottom: 1px solid #CED0D4;">
+            <button type="button" class="fb-like-btn" onclick="toggleFbLike(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>👍</span>
+              <span>Tetszik</span>
+            </button>
+            <button type="button" onclick="focusFbComment(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>💬</span>
+              <span>Hozzászólás</span>
+            </button>
+            <button type="button" class="fb-share-btn" onclick="shareFbPost(this)" style="padding: 8px; border: none; border-radius: 4px; background: transparent; color: #65676B; font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span>↗️</span>
+              <span>Megosztás</span>
+            </button>
+          </div>
+
+          <div style="padding: 10px 16px 14px 16px;">
+            <div class="fb-comments-list" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;"></div>
+            <form onsubmit="addFbComment(event, this)" style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">TE</div>
+              <input type="text" class="fb-comment-input" placeholder="Írj hozzászólást..." required style="flex: 1; padding: 8px 14px; border: none; border-radius: 18px; background: #F0F2F5; font-size: 13px; font-family: inherit; color: #050505; outline: none;">
+              <button type="submit" style="padding: 7px 14px; border: none; border-radius: 6px; background: #1877F2; color: #FFFFFF; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+                Küldés
+              </button>
+            </form>
+          </div>
+        </article>
+
+</div>
+      </div>
+
+      <!-- Mobil alsó home bar -->
+      <div id="blog-phone-bottom" style="display: none; background: #FFFFFF; padding: 8px 0 10px 0; justify-content: center;">
+        <span style="width: 110px; height: 4px; border-radius: 999px; background: #0F172A; opacity: 0.75;"></span>
+      </div>
+    </div>
+
+    <!-- „Görgess” animáció -->
+    <div id="blog-scroll-cue" class="side-scroll-cue" onclick="triggerBlogAutoScrollBoost()" title="Kattints a görgetéshez" style="cursor: pointer;">
+      <div class="mouse-track"><div class="mouse-wheel"></div></div>
+      <div class="scroll-chevrons"><span></span><span></span><span></span></div>
+      <span class="scroll-label">Görgess</span>
+    </div>
+  </div>
+
+  <style>
+    #blog-scrollable-screen {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #blog-scrollable-screen::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <script>
+    (function () {
+      let blogAutoScrollRaf = null;
+      let blogAutoScrollPaused = false;
+      let blogPauseTimer = null;
+
+      window.stopBlogAutoScroll = function () {
+        if (blogAutoScrollRaf) {
+          cancelAnimationFrame(blogAutoScrollRaf);
+          blogAutoScrollRaf = null;
+        }
+      };
+
+      function pauseBlogAutoScrollTemporarily(ms) {
+        blogAutoScrollPaused = true;
+        clearTimeout(blogPauseTimer);
+        blogPauseTimer = setTimeout(function () {
+          blogAutoScrollPaused = false;
+        }, ms || 2500);
+      }
+
+      window.triggerBlogAutoScrollBoost = function () {
+        const screen = document.getElementById('blog-scrollable-screen');
+        if (!screen) return;
+        blogAutoScrollPaused = false;
+        clearTimeout(blogPauseTimer);
+
+        if (screen.scrollHeight > screen.clientHeight) {
+          const nextTop = screen.scrollTop + 260;
+          if (nextTop >= screen.scrollHeight - screen.clientHeight - 4) {
+            screen.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            screen.scrollTo({ top: nextTop, behavior: 'smooth' });
+          }
+          pauseBlogAutoScrollTemporarily(1800);
+        } else {
+          window.scrollBy({ top: 320, behavior: 'smooth' });
+        }
+      };
+
+      window.startBlogAutoScroll = function () {
+        const screen = document.getElementById('blog-scrollable-screen');
+        if (!screen) return;
+        window.stopBlogAutoScroll();
+        blogAutoScrollPaused = false;
+
+        let lastTime = performance.now();
+        const speedPxPerSec = 95; // Gyorsabb automatikus görgetés (px / mp)
+
+        function step(now) {
+          const dt = Math.min(0.05, (now - lastTime) / 1000);
+          lastTime = now;
+
+          if (!blogAutoScrollPaused && screen.scrollHeight > screen.clientHeight) {
+            const maxScroll = screen.scrollHeight - screen.clientHeight;
+            if (screen.scrollTop >= maxScroll - 1) {
+              screen.scrollTop = 0;
+            } else {
+              screen.scrollTop += speedPxPerSec * dt;
+            }
+          }
+
+          blogAutoScrollRaf = requestAnimationFrame(step);
+        }
+
+        blogAutoScrollRaf = requestAnimationFrame(step);
+      };
+
+      const initScreen = document.getElementById('blog-scrollable-screen');
+      if (initScreen) {
+        initScreen.addEventListener('wheel', function () {
+          pauseBlogAutoScrollTemporarily(3000);
+        }, { passive: true });
+        initScreen.addEventListener('touchstart', function () {
+          pauseBlogAutoScrollTemporarily(3000);
+        }, { passive: true });
+        initScreen.addEventListener('mouseenter', function () {
+          blogAutoScrollPaused = true;
+        });
+        initScreen.addEventListener('mouseleave', function () {
+          blogAutoScrollPaused = false;
+        });
+      }
+    })();
+
+    if (typeof toggleFbReadMore !== 'function') {
+      window.toggleFbReadMore = function (btn) {
+        const card = btn.closest('.fb-post-card');
+        if (!card) return;
+        const dots = card.querySelector('.fb-more-dots');
+        const body = card.querySelector('.fb-more-body');
+        if (!body) return;
+
+        const isExpanded = body.style.display === 'inline';
+        if (isExpanded) {
+          body.style.display = 'none';
+          if (dots) dots.style.display = 'inline';
+          btn.textContent = 'Olvass tovább';
+        } else {
+          body.style.display = 'inline';
+          if (dots) dots.style.display = 'none';
+          btn.textContent = 'Kevesebb';
+        }
+      };
+    }
+
+    function switchBlogViewport(btn) {
+      const buttons = document.querySelectorAll('#blog .blog-view-btn');
+      buttons.forEach(function (b) {
+        b.classList.remove('is-active');
+        b.style.background = '#FFFFFF';
+        b.style.color = '#050505';
+        b.style.borderColor = '#CCD0D5';
+      });
+
+      btn.classList.add('is-active');
+      btn.style.background = '#1877F2';
+      btn.style.color = '#FFFFFF';
+      btn.style.borderColor = '#1877F2';
+
+      const width = btn.getAttribute('data-width') || '840px';
+      const mode = btn.getAttribute('data-mode') || 'desktop';
+      const label = btn.getAttribute('data-label') || 'Nézet';
+
+      const stage = document.getElementById('blog-viewport-stage');
+      const screen = document.getElementById('blog-scrollable-screen');
+      const phoneTop = document.getElementById('blog-phone-top');
+      const phoneBottom = document.getElementById('blog-phone-bottom');
+      const feed = document.getElementById('pmi-social-feed');
+      const cards = document.querySelectorAll('#blog .fb-post-card');
+      const activeViewLabel = document.getElementById('blog-active-view-label');
+      const activeWidthLabel = document.getElementById('blog-active-width-label');
+      const topbarTitle = document.getElementById('blog-topbar-title');
+      const topbarMeta = document.getElementById('blog-topbar-meta');
+
+      if (mode === 'phone') {
+        const pxWidth = parseInt(width, 10) || 393;
+        const borderPx = 8;
+
+        if (stage) {
+          stage.style.boxSizing = 'content-box';
+          stage.style.width = pxWidth + 'px';
+          stage.style.maxWidth = '100%';
+          stage.style.borderRadius = '36px';
+          stage.style.border = borderPx + 'px solid #0F172A';
+          stage.style.boxShadow = '0 20px 48px rgba(15, 23, 42, 0.24)';
+          stage.style.background = '#FFFFFF';
+        }
+        if (phoneTop) phoneTop.style.display = 'block';
+        if (phoneBottom) phoneBottom.style.display = 'flex';
+        if (screen) {
+          screen.style.height = '680px';
+          screen.style.maxHeight = '680px';
+          screen.style.overflowY = 'auto';
+          screen.style.overflowX = 'hidden';
+          screen.scrollTop = 0;
+        }
+        if (feed) {
+          feed.style.padding = '8px 0 12px 0';
+          feed.style.gap = '8px';
+        }
+        cards.forEach(function (c) {
+          c.style.borderRadius = '0';
+          c.style.boxShadow = 'none';
+        });
+
+        if (typeof window.startBlogAutoScroll === 'function') {
+          window.startBlogAutoScroll();
+        }
+      } else {
+        if (typeof window.stopBlogAutoScroll === 'function') {
+          window.stopBlogAutoScroll();
+        }
+
+        if (stage) {
+          stage.style.boxSizing = 'border-box';
+          stage.style.width = '100%';
+          stage.style.maxWidth = width;
+          stage.style.borderRadius = '12px';
+          stage.style.border = '1px solid #CCD0D5';
+          stage.style.boxShadow = '0 12px 32px rgba(0, 0, 0, 0.12)';
+          stage.style.background = '#F0F2F5';
+        }
+        if (phoneTop) phoneTop.style.display = 'none';
+        if (phoneBottom) phoneBottom.style.display = 'none';
+        if (screen) {
+          screen.style.height = 'auto';
+          screen.style.maxHeight = 'none';
+          screen.style.overflowY = 'visible';
+          screen.style.overflowX = 'visible';
+          screen.scrollTop = 0;
+        }
+        if (feed) {
+          feed.style.padding = '14px';
+          feed.style.gap = '14px';
+        }
+        cards.forEach(function (c) {
+          c.style.borderRadius = '8px';
+          c.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.1)';
+        });
+      }
+
+      if (activeViewLabel) activeViewLabel.textContent = label;
+      if (activeWidthLabel) activeWidthLabel.textContent = 'Kijelző szélesség: ' + width;
+      if (topbarTitle) topbarTitle.textContent = '• ' + label;
+      if (topbarMeta) topbarMeta.textContent = mode === 'phone' ? width : 'Hírfolyam';
+    }
+
+    function toggleFbLike(btn) {
+      const card = btn.closest('.fb-post-card');
+      const countEl = card ? card.querySelector('.fb-like-count') : null;
+      if (!countEl) return;
+
+      const current = parseInt(countEl.textContent, 10) || 0;
+      const liked = btn.dataset.liked === 'true';
+
+      if (liked) {
+        btn.dataset.liked = 'false';
+        btn.style.color = '#65676B';
+        btn.style.background = 'transparent';
+        countEl.textContent = current - 1;
+      } else {
+        btn.dataset.liked = 'true';
+        btn.style.color = '#1877F2';
+        btn.style.background = '#E7F3FF';
+        countEl.textContent = current + 1;
+      }
+    }
+
+    function focusFbComment(btn) {
+      const card = btn.closest('.fb-post-card');
+      const input = card ? card.querySelector('.fb-comment-input') : null;
+      if (input) input.focus();
+    }
+
+    function shareFbPost(btn) {
+      const card = btn.closest('.fb-post-card');
+      const countEl = card ? card.querySelector('.fb-share-count') : null;
+      if (!countEl) return;
+      const current = parseInt(countEl.textContent, 10) || 0;
+      countEl.textContent = current + 1;
+      btn.style.color = '#1877F2';
+    }
+
+    function addFbComment(event, formEl) {
+      event.preventDefault();
+      const inputEl = formEl.querySelector('.fb-comment-input');
+      const card = formEl.closest('.fb-post-card');
+      const listEl = card ? card.querySelector('.fb-comments-list') : null;
+      const countEl = card ? card.querySelector('.fb-comment-count') : null;
+      if (!inputEl || !listEl) return;
+
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      const row = document.createElement('div');
+      row.style.cssText = 'display: flex; align-items: flex-start; gap: 8px;';
+
+      const avatar = document.createElement('div');
+      avatar.style.cssText = 'width: 26px; height: 26px; border-radius: 50%; background: #1877F2; color: #FFFFFF; font-size: 10.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;';
+      avatar.textContent = 'TE';
+
+      const bubble = document.createElement('div');
+      bubble.style.cssText = 'background: #F0F2F5; padding: 7px 11px; border-radius: 14px; font-size: 12.5px; color: #050505; line-height: 1.35;';
+
+      const author = document.createElement('strong');
+      author.style.cssText = 'display: block; font-size: 12px;';
+      author.textContent = 'Te';
+
+      const body = document.createElement('span');
+      body.textContent = text;
+
+      bubble.appendChild(author);
+      bubble.appendChild(body);
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+      listEl.appendChild(row);
+
+      if (countEl) {
+        countEl.textContent = (parseInt(countEl.textContent, 10) || 0) + 1;
+      }
+
+      inputEl.value = '';
+    }
+  </script>
+</section>
+
+<!-- 3. PODCAST KONCEPCIÓ (IPHONE MOCKUP + HÁTTÉRZENE LEJÁTSZÓ) -->
+    <section id="podcast" class="concept-section">
+      <div class="concept-top-row">
+        <div class="concept-info">
+          <span class="badge badge-podcast">Közösségépítés &amp; Modern Formátum</span>
+          <h1>„PM Közelről” – Tagozati podcast koncepció</h1>
+          <p>
+            Kötetlen, mégis szakmai beszélgetések hazai projektvezetőkkel, trénerekkel és önkéntesekkel. Ideális formátum munkába járás mellé, PDU pont szerzési lehetőséggel.
+          </p>
+
+          <div class="feature-grid">
+            <div class="feature-card purple">
+              <h3>Epizód hossz &amp; Ritmus</h3>
+              <p>Kéthetente megjelenő 25–35 perces adások, feszes szerkesztéssel és gyakorlati tanácsokkal.</p>
+            </div>
+            <div class="feature-card">
+              <h3>Terjesztés &amp; PDU</h3>
+              <p>Spotify, Apple Podcasts és YouTube megjelenés. Hallgatásért járó PDU igazolással.</p>
+            </div>
+          </div>
+
+          <div class="topic-list">
+            <h4>Tervezett adásstruktúra</h4>
+            <ul>
+              <li><strong>Bemelegítés (5 perc):</strong> A vendég legemlékezetesebb projektmenedzsment bakija.</li>
+              <li><strong>Mélyfúrás (20 perc):</strong> Aktuális szakmai téma (pl. hibrid csapatvezetés, AI eszközök).</li>
+              <li><strong>Villámkérdések (5 perc):</strong> Könyvajánló, produktivitási tippek, tanács kezdő PM-eknek.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="preview-wrapper">
+          <div class="iphone-frame">
+            <div class="iphone-notch"><div class="camera-dot"></div></div>
+            <div class="iphone-screen">
+              <div class="status-bar dark" style="background: #1E1B4B;">
+                <span>9:41</span>
+                <span>5G • 100%</span>
+              </div>
+              <div class="m-pod-bg">
+                <div style="text-align: center; font-size: 11px; color: #A5B4FC; letter-spacing: 1px; text-transform: uppercase;">
+                  Most játszott epizód
+                </div>
+                <div class="m-pod-art">
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.5px;">PMI Budapest, Hungarian Chapter</span>
+                  <div>
+                    <strong style="font-size: 18px; line-height: 1.2; display: block;">PM Közelről</strong>
+                    <span style="font-size: 11px; opacity: 0.9;">Podcast • 12. adás</span>
+                  </div>
+                </div>
+                <div style="text-align: center;">
+                  <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">#01 – Önkéntességből karrier</h4>
+                  <span style="font-size: 12px; color: #94A3B8;">Vendég: Papp Ferenc PMP®</span>
+                </div>
+                <div class="m-pod-controls" style="margin: 16px 0;">
+                  <div class="m-progress"><div id="pmi-pod-progress-bar" class="m-progress-bar"></div></div>
+                  <div style="display: flex; justify-content: space-between; font-size: 10px; color: #94A3B8; margin-bottom: 12px;">
+                    <span id="pmi-pod-current-time">0:00</span><span id="pmi-pod-duration">0:00</span>
+                  </div>
+                  <div style="display: flex; justify-content: center; align-items: center; gap: 24px;">
+                    <span id="pmi-pod-rewind" style="font-size: 13px; color: #CBD5E1; cursor: pointer;">↺ 15s</span>
+                    <button type="button" id="pmi-pod-play-btn" class="m-play-btn" aria-label="Lejátszás vagy szüneteltetés" style="border: none; cursor: pointer;">▶</button>
+                    <span id="pmi-pod-forward" style="font-size: 13px; color: #CBD5E1; cursor: pointer;">30s ↻</span>
+                  </div>
+                  <div id="pmi-pod-audio-status" style="text-align: center; font-size: 10px; color: #A5B4FC; margin-top: 8px;">
+                    A „3. Blog és Podcast” gombra kattintva indul
+                  </div>
+                </div>
+                <div style="margin-top: 18px;">
+                  <span style="font-size: 11px; font-weight: 700; color: #CBD5E1; text-transform: uppercase;">Következő adások</span>
+                  <div class="m-ep-item">
+                    <div>
+                      <strong style="display: block;">#02 – Első lépések</strong>
+                      <span style="font-size: 10px; color: #94A3B8;">28 perc • 0.5 PDU</span>
+                    </div>
+                    <span style="color: var(--orange); font-weight: bold;">▶</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="side-scroll-cue" aria-hidden="true">
+            <div class="mouse-track"><div class="mouse-wheel"></div></div>
+            <div class="scroll-chevrons"><span></span><span></span><span></span></div>
+            <span class="scroll-label">Görgess</span>
+          </div>
+        </div>
+      </div>
+
+      <audio id="pmi-bg-rickroll" loop preload="auto" src="music/podcast.mp3"></audio>
+
+      <script>
+        (function () {
+          const audio = document.getElementById('pmi-bg-rickroll');
+          const playBtn = document.getElementById('pmi-pod-play-btn');
+          const rewindBtn = document.getElementById('pmi-pod-rewind');
+          const forwardBtn = document.getElementById('pmi-pod-forward');
+          const currentEl = document.getElementById('pmi-pod-current-time');
+          const durationEl = document.getElementById('pmi-pod-duration');
+          const barEl = document.getElementById('pmi-pod-progress-bar');
+          const statusEl = document.getElementById('pmi-pod-audio-status');
+          const tabBtns = document.querySelectorAll('.tab-btn');
+
+          if (!audio || !playBtn) return;
+
+          function formatTime(sec) {
+            if (!Number.isFinite(sec) || sec < 0) return '0:00';
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return m + ':' + (s < 10 ? '0' : '') + s;
+          }
+
+          function syncUI() {
+            if (!audio.paused) {
+              playBtn.textContent = '❚❚';
+              if (statusEl) statusEl.textContent = 'Lejátszás folyamatban . . .';
+            } else {
+              playBtn.textContent = '▶';
+              if (statusEl) statusEl.textContent = 'Szüneteltetve';
+            }
+          }
+
+          async function playPodcastAudio() {
+            try {
+              await audio.play();
+              syncUI();
+            } catch (err) {
+              syncUI();
+            }
+          }
+
+          tabBtns.forEach(function (btn) {
+            const onclickAttr = btn.getAttribute('onclick') || '';
+            const isPodcastTab =
+              onclickAttr.indexOf("'podcast'") !== -1 ||
+              onclickAttr.indexOf('"podcast"') !== -1 ||
+              btn.textContent.indexOf('3. Blog és Podcast') !== -1;
+
+            if (isPodcastTab) {
+              btn.addEventListener('click', function () {
+                playPodcastAudio();
+              });
+            }
+          });
+
+          playBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (audio.paused) {
+              playPodcastAudio();
+            } else {
+              audio.pause();
+              syncUI();
+            }
+          });
+
+          if (rewindBtn) {
+            rewindBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              audio.currentTime = Math.max(0, audio.currentTime - 15);
+            });
+          }
+
+          if (forwardBtn) {
+            forwardBtn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              if (Number.isFinite(audio.duration)) {
+                audio.currentTime = Math.min(audio.duration, audio.currentTime + 30);
+              }
+            });
+          }
+
+          audio.addEventListener('loadedmetadata', function () {
+            if (durationEl && Number.isFinite(audio.duration)) {
+              durationEl.textContent = formatTime(audio.duration);
+            }
+          });
+
+          audio.addEventListener('timeupdate', function () {
+            if (currentEl) {
+              currentEl.textContent = formatTime(audio.currentTime);
+            }
+            if (barEl && Number.isFinite(audio.duration) && audio.duration > 0) {
+              const pct = Math.min(100, Math.max(0, (audio.currentTime / audio.duration) * 100));
+              barEl.style.width = pct + '%';
+            }
+          });
+
+          audio.addEventListener('play', syncUI);
+          audio.addEventListener('pause', syncUI);
+        })();
+      </script>
+    </section>
+
+  </main>
+
+  <script>
+    const autoScrollControllers = new WeakMap();
+
+    function initAutoScroll(screenEl) {
+      const state = {
+        isPaused: false,
+        idleTimer: null,
+        pauseAtEndTimer: null,
+        direction: 1,
+        exactScrollTop: 0
+      };
+
+      const IDLE_DELAY = 3500;
+      const SPEED_PX_PER_SEC = 18;
+
+      function scheduleResume() {
+        clearTimeout(state.idleTimer);
+        state.idleTimer = setTimeout(() => {
+          state.exactScrollTop = screenEl.scrollTop;
+          state.isPaused = false;
+        }, IDLE_DELAY);
+      }
+
+      function pauseInteraction() {
+        state.isPaused = true;
+        clearTimeout(state.idleTimer);
+        clearTimeout(state.pauseAtEndTimer);
+        scheduleResume();
+      }
+
+      screenEl.addEventListener('mouseenter', () => {
+        state.isPaused = true;
+        clearTimeout(state.idleTimer);
+      });
+
+      screenEl.addEventListener('mouseleave', () => {
+        scheduleResume();
+      });
+
+      screenEl.addEventListener('wheel', pauseInteraction, { passive: true });
+      screenEl.addEventListener('touchstart', pauseInteraction, { passive: true });
+      screenEl.addEventListener('pointerdown', pauseInteraction, { passive: true });
+
+      state.isPaused = true;
+      scheduleResume();
+
+      autoScrollControllers.set(screenEl, { state, scheduleResume, SPEED_PX_PER_SEC });
+    }
+
+    document.querySelectorAll('.mrp-content, .iphone-screen').forEach(initAutoScroll);
+
+    let lastTimestamp = null;
+    function autoScrollLoop(timestamp) {
+      if (lastTimestamp !== null) {
+        const dt = (timestamp - lastTimestamp) / 1000;
+        const activeSection = document.querySelector('.concept-section.active');
+        if (activeSection) {
+          const scrollableElements = activeSection.querySelectorAll('.mrp-content, .iphone-screen');
+          scrollableElements.forEach(activeScreen => {
+            const ctrl = autoScrollControllers.get(activeScreen);
+            if (ctrl && !ctrl.state.isPaused) {
+              const maxScroll = activeScreen.scrollHeight - activeScreen.clientHeight;
+              if (maxScroll > 0) {
+                ctrl.state.exactScrollTop += ctrl.state.direction * ctrl.SPEED_PX_PER_SEC * dt;
+
+                if (ctrl.state.exactScrollTop >= maxScroll) {
+                  ctrl.state.exactScrollTop = maxScroll;
+                  activeScreen.scrollTop = maxScroll;
+                  ctrl.state.isPaused = true;
+                  ctrl.state.pauseAtEndTimer = setTimeout(() => {
+                    ctrl.state.direction = -1;
+                    ctrl.state.isPaused = false;
+                  }, 2200);
+                } else if (ctrl.state.exactScrollTop <= 0) {
+                  ctrl.state.exactScrollTop = 0;
+                  activeScreen.scrollTop = 0;
+                  ctrl.state.isPaused = true;
+                  ctrl.state.pauseAtEndTimer = setTimeout(() => {
+                    ctrl.state.direction = 1;
+                    ctrl.state.isPaused = false;
+                  }, 2500);
+                } else {
+                  activeScreen.scrollTop = ctrl.state.exactScrollTop;
+                }
+              }
+            }
+          });
+        }
+      }
+      lastTimestamp = timestamp;
+      requestAnimationFrame(autoScrollLoop);
+    }
+
+    requestAnimationFrame(autoScrollLoop);
+
+    function switchTab(tabId, btnElement) {
+      document.querySelectorAll('.concept-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      const targetSection = document.getElementById(tabId);
+      targetSection.classList.add('active');
+      btnElement.classList.add('active');
+
+      targetSection.querySelectorAll('.mrp-content, .iphone-screen').forEach(newScreen => {
+        newScreen.scrollTop = 0;
+        const ctrl = autoScrollControllers.get(newScreen);
+        if (ctrl) {
+          ctrl.state.exactScrollTop = 0;
+          ctrl.state.direction = 1;
+          ctrl.state.isPaused = true;
+          clearTimeout(ctrl.state.pauseAtEndTimer);
+          ctrl.scheduleResume();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
